@@ -13,7 +13,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import StickyFooter from "../../component/StickyFooter";
 import StickyHeader from "../../component/StickyHeader";
 import { fetchAuthAdmin } from "../../api";
-import { IsignInParam } from "../../interface/interfaces";
 
 const theme = createTheme();
 
@@ -21,21 +20,14 @@ function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
-    const signInParam: IsignInParam = {
-      id: data.get("id") === null ? "err" : data.get("id").toString,
-      pw: data.get("password").toString(),
-    };
-
-    fetchAuthAdmin(signInParam);
+    console.log("submit");
+    fetchAuthAdmin(data.get("id") + "", data.get("pw") + "");
   };
 
   return (
     <ThemeProvider theme={theme}>
       <StickyHeader />
       <Container component="main" maxWidth="xs">
-        <br />
-        <br />
         <CssBaseline />
         <Box
           sx={{
