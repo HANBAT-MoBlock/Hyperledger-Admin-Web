@@ -1,5 +1,5 @@
 import ApexChart from "react-apexcharts";
-import data from "../../dummyData/data.json";
+import data from "../../../dummyData/data.json";
 
 // interface ICoinChart {
 //     coinName: string,

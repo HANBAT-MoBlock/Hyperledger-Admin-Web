@@ -14,13 +14,19 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Grid from "@mui/material/Grid";
-import CoinChart from "./CoinChart";
+import CoinChart from "./dashboard/CoinChart";
+import HomeComp from "./dashboard/HomeComp";
 
 const drawerWidth = 240;
 
 // interface IDashboard {}
 
 function Dashboard() {
+  const handleSideClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    // console.log(event.target.);
+    console.log("ss" + "");
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -57,7 +63,7 @@ function Dashboard() {
           {["홈", "사용자 관리", "코인 관리", "가맹점 관리", "트랜잭션"].map(
             (text, index) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton>
+                <ListItemButton onClick={handleSideClick}>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
@@ -75,26 +81,7 @@ function Dashboard() {
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
       >
         <Toolbar />
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <span>
-              grid part 1/ 최근
-              <CoinChart />
-            </span>
-          </Grid>
-          <Grid item xs={6}>
-            <span>Hello i am grid part 2</span>
-          </Grid>
-          <Grid item xs={6}>
-            <span>Hello i am grid part 3</span>
-          </Grid>
-          <Grid item xs={6}>
-            <span>Hello i am grid part 4</span>
-          </Grid>
-          <Grid item xs={12}>
-            <span>Hello i am grid part 5</span>
-          </Grid>
-        </Grid>
+        <HomeComp />
       </Box>
       {/*<Box*/}
       {/*  component="main"*/}

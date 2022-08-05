@@ -10,20 +10,45 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import StickyFooter from "../../component/StickyFooter";
-import StickyHeader from "../../component/StickyHeader";
-import { fetchAuthAdmin } from "../../api";
+import StickyFooter from "../../../component/StickyFooter";
+import StickyHeader from "../../../component/StickyHeader";
+import { useRecoilState } from "recoil";
+import { authAtom } from "../../../atoms";
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const theme = createTheme();
 
 function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log("submit");
-    fetchAuthAdmin(data.get("id") + "", data.get("pw") + "");
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [jwt, setJwt] = useRecoilState(authAtom);
+  let history = useHistory();
+
+  const fetchApi = async () => {
+    console.log(
+      `http://119.203.225.3:8081/admin/login?email=${id}&password=${pw}`
+    );
+
+    await fetch(
+      `http://119.203.225.3:8081/admin/login?email=${id}&password=${pw}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem("accessToken", data.accessToken);
+        setJwt(data.accessToken);
+      });
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    setId((formData.get("id") + "").toString());
+    setPw((formData.get("password") + "").toString());
+
+    fetchApi();
+    history.push("/dashboard");
+  };
   return (
     <ThemeProvider theme={theme}>
       <StickyHeader />
@@ -64,6 +89,7 @@ function SignIn() {
               name="id"
               autoComplete="id"
               autoFocus
+              onChange={(event) => setId(event.target.value)}
             />
             <TextField
               margin="normal"
@@ -74,6 +100,7 @@ function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(event) => setPw(event.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
