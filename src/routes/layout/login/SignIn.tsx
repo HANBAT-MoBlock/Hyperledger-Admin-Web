@@ -16,6 +16,7 @@ import { useRecoilState } from "recoil";
 import { authAtom } from "../../../atoms";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { log } from "util";
 
 const theme = createTheme();
 
@@ -25,19 +26,21 @@ function SignIn() {
   const [jwt, setJwt] = useRecoilState(authAtom);
   let history = useHistory();
 
-  const fetchApi = async () => {
-    console.log(
-      `http://119.203.225.3:8081/admin/login?email=${id}&password=${pw}`
-    );
-
-    await fetch(
-      `http://119.203.225.3:8081/admin/login?email=${id}&password=${pw}`
-    )
-      .then((response) => response.json())
+  const fetchLoginApi = () => {
+    fetch(`http://119.203.225.3:8081/admin/login?email=${id}&password=${pw}`)
+      .then((response) => {
+        if (!response.ok) {
+          alert("error alert");
+          throw new Error();
+        } else {
+          return response.json();
+        }
+      })
       .then((data) => {
         localStorage.setItem("accessToken", data.accessToken);
         setJwt(data.accessToken);
-      });
+      })
+      .then(() => history.push("/dashboard"));
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -46,8 +49,7 @@ function SignIn() {
     setId((formData.get("id") + "").toString());
     setPw((formData.get("password") + "").toString());
 
-    fetchApi();
-    history.push("/dashboard");
+    fetchLoginApi();
   };
   return (
     <ThemeProvider theme={theme}>

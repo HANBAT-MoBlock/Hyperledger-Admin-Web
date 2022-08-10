@@ -1,17 +1,38 @@
 import ApexChart from "react-apexcharts";
-import data from "../../../dummyData/data.json";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authAtom } from "../../../atoms";
+import { useQuery } from "react-query";
+import { fetchCoinUsage } from "../../../api";
 
-// interface ICoinChart {
-//     coinName: string,
-// }
+interface ICoinUsage {
+  tradingDate: string;
+  tradingVolume: number;
+}
+
 function CoinChart() {
-  return (
+  const jwt = useRecoilValue(authAtom);
+  const { isLoading, data } = useQuery<ICoinUsage[]>(
+    "coinUsage",
+    async () =>
+      await fetchCoinUsage(
+        jwt.accessToken,
+        "test",
+        "2020-07-01T00:00:00",
+        "2023-08-01T00:00:00"
+      )
+  );
+
+  return isLoading ? (
+    <span>lading...</span>
+  ) : (
     <ApexChart
       type="area"
       series={[
         {
-          name: "STOCK ABC",
-          data: data?.map((price) => price.close) as unknown as number[],
+          name: "VALUE",
+          data: data?.map(
+            (usage) => usage.tradingVolume
+          ) as unknown as number[],
         },
       ]}
       options={{
@@ -29,14 +50,14 @@ function CoinChart() {
         },
 
         title: {
-          text: "Fundamental Analysis of Stocks",
+          text: "usage of TEST coin",
           align: "left",
         },
         subtitle: {
-          text: "Price Movements",
+          text: "usage Movements",
           align: "left",
         },
-        labels: data?.map((time) => time.time_close) as unknown as string[],
+        labels: data?.map((time) => time.tradingDate) as unknown as string[],
         xaxis: {
           type: "datetime",
         },

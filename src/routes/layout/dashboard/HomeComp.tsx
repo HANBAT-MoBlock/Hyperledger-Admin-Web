@@ -1,15 +1,21 @@
 import Grid from "@mui/material/Grid";
 import CoinChart from "./CoinChart";
 import * as React from "react";
+import Box from "@mui/material/Box";
 
 function HomeComp() {
   return (
     <Grid container spacing={2}>
       <Grid item xs={6}>
-        <span>
-          grid part 1/ 최근
+        <Box
+          sx={{
+            padding: 5,
+            borderRadius: 10,
+            boxShadow: 3,
+          }}
+        >
           <CoinChart />
-        </span>
+        </Box>
       </Grid>
       <Grid item xs={6}>
         <span>Hello i am grid part 2</span>
