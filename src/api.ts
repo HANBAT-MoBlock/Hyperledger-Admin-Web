@@ -1,5 +1,10 @@
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
-import { ICoinDetail, UserRole } from "./interfaces";
+import {
+  ICoinDetail,
+  IUserDetail,
+  IUserModifyReq,
+  UserRole,
+} from "./interfaces";
 import { throws } from "assert";
 
 const BASE_URL = "http://119.203.225.3:8081";
@@ -104,6 +109,39 @@ export const fetchTransferCoin = (
       coinName: coinName,
       coinValue: coinValue,
       identifier: userNameList,
+    }),
+  });
+};
+
+export const fetchDeleteUser = (
+  jwt: string,
+  identifier: GridSelectionModel
+) => {
+  return fetch(`${BASE_URL}/admin/user`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      jwt,
+    },
+    body: JSON.stringify({
+      identifier: identifier,
+    }),
+  });
+};
+
+export const fetchUpdateUserId = (jwt: string, userDto: IUserModifyReq) => {
+  return fetch(`${BASE_URL}/admin/user`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      jwt,
+    },
+    body: JSON.stringify({
+      requestedIdentifier: userDto.requestedIdentifier,
+      wantToChangeIdentifier: userDto.wantToChangeIdentifier,
+      wantToChangeName: userDto.wantToChangeName,
+      wantToChangePlainPassword: userDto.wantToChangePlainPassword,
+      wantToChangeUserRole: userDto.wantToChangeUserRole,
     }),
   });
 };

@@ -8,6 +8,7 @@ export interface IUserDetail {
   identifier: string;
   lastUpdated: string;
   name: string;
+  userRole: UserRole;
 }
 
 export interface IPageDetail {
@@ -33,4 +34,12 @@ export interface ICoinDetail {
   totalCoinNumber: number;
   totalPage: number;
   coinDtoList: ICoinDtoList[];
+}
+
+export interface IUserModifyReq {
+  requestedIdentifier: string;
+  wantToChangeIdentifier: string;
+  wantToChangeName: string;
+  wantToChangePlainPassword: string | null;
+  wantToChangeUserRole: UserRole;
 }

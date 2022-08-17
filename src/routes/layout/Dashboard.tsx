@@ -20,6 +20,11 @@ import UserComp from "./user/UserComp";
 import TransactionComp from "./transaction/TransactionComp";
 import CoinComp from "./coin/CoinComp";
 import ShopComp from "./shop/ShopComp";
+import HomeIcon from "@mui/icons-material/Home";
+import CurrencyBitcoinIcon from "@mui/icons-material/CurrencyBitcoin";
+import GroupIcon from "@mui/icons-material/Group";
+import StoreIcon from "@mui/icons-material/Store";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 
 const drawerWidth = 240;
 
@@ -33,6 +38,13 @@ function Dashboard() {
     <CoinComp />,
     <ShopComp />,
     <TransactionComp />,
+  ];
+  const sidebarIcon = [
+    <HomeIcon />,
+    <GroupIcon />,
+    <CurrencyBitcoinIcon />,
+    <StoreIcon />,
+    <ReceiptLongIcon />,
   ];
 
   const handleSideClick = (
@@ -87,9 +99,7 @@ function Dashboard() {
                     handleSideClick(event, index);
                   }}
                 >
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
+                  <ListItemIcon>{sidebarIcon[index]}</ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
               </ListItem>

@@ -1,6 +1,12 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import * as React from "react";
+import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { authAtom, modalState } from "../../../../atoms";
+import Button from "@mui/material/Button";
+import { fetchDeleteCoin, fetchDeleteUser } from "../../../../api";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute" as "absolute",
@@ -14,15 +20,39 @@ const style = {
   p: 4,
 };
 
-function UserCompDel() {
+type props = {
+  userList: GridSelectionModel;
+};
+
+function UserCompDel({ userList }: props) {
+  const jwt = useRecoilValue(authAtom);
+  const setModalState = useSetRecoilState(modalState);
+
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        UserDel
+        User Delete
       </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      <Typography sx={{ mt: 2 }}>
+        삭제할 유저 : {userList.toString()}
       </Typography>
+      <br />
+      <Button
+        sx={{ mt: 1 }}
+        variant="contained"
+        onClick={async () =>
+          await fetchDeleteUser(jwt.accessToken, userList).then((response) => {
+            setModalState(false);
+            if (!response.ok) {
+              response.json().then((data) => alert(data.message));
+            } else {
+              alert("삭제 성공");
+            }
+          })
+        }
+      >
+        제거
+      </Button>
     </Box>
   );
 }
