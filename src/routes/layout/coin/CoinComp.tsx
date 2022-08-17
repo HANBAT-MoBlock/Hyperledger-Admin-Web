@@ -11,7 +11,7 @@ import { fetchAllCoins, fetchAllUser } from "../../../api";
 import { IconButton, Modal } from "@mui/material";
 import CreateCoin from "./modalComp/CreateCoin";
 import DeleteCoin from "./modalComp/DeleteCoin";
-import TransferCoin from "../user/modalComp/TransferCoin";
+import TransferCoin from "./modalComp/TransferCoin";
 import TransferCoinAll from "./modalComp/TransferCoinAll";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
@@ -62,11 +62,19 @@ function CoinComp() {
         </Button>
         <Button
           onClick={() => {
-            setModalComp(<TransferCoinAll coinDtoList={data!.coinDtoList} />);
+            setModalComp(<TransferCoinAll coinList={data!.coinDtoList} />);
             handleOpen();
           }}
         >
           <Typography>코인 배포</Typography>
+        </Button>
+        <Button
+          onClick={() => {
+            setModalComp(<TransferCoin coinList={data!.coinDtoList} />);
+            handleOpen();
+          }}
+        >
+          <Typography>코인 전송</Typography>
         </Button>
         <Button
           onClick={() => {

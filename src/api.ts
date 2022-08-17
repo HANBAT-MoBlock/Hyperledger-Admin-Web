@@ -5,7 +5,7 @@ import { throws } from "assert";
 const BASE_URL = "http://119.203.225.3:8081";
 
 export const fetchAllUser = (jwt: string, page: number) => {
-  return fetch(`${BASE_URL}/admin/users?${page}`, {
+  return fetch(`${BASE_URL}/admin/users?page=${page}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -84,6 +84,26 @@ export const fetchTransferCoinAll = (
       coinName: coinName,
       coinValue: coinValue,
       userRole: userRole,
+    }),
+  });
+};
+
+export const fetchTransferCoin = (
+  jwt: string,
+  coinName: string,
+  coinValue: string,
+  userNameList: string[]
+) => {
+  return fetch(`${BASE_URL}/admin/coin/update/asset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      jwt,
+    },
+    body: JSON.stringify({
+      coinName: coinName,
+      coinValue: coinValue,
+      coinNameList: userNameList,
     }),
   });
 };

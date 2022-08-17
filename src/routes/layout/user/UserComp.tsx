@@ -6,38 +6,31 @@ import Typography from "@mui/material/Typography";
 import { useRecoilValue } from "recoil";
 import { authAtom } from "../../../atoms";
 import { useQuery } from "react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchAllUser } from "../../../api";
 import { IPageDetail } from "../../../interfaces";
-import { Modal } from "@mui/material";
+import { IconButton, Modal } from "@mui/material";
 import UserCompUpdatePw from "./modalComp/UserCompUpdatePw";
 import UserCompNew from "./modalComp/UserCompNew";
 import UserCompDel from "./modalComp/UserCompDel";
 import UserCompUpdateId from "./modalComp/UserCompUpdateId";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import TransferCoin from "../coin/modalComp/TransferCoin";
 
 function UserComp() {
-  const modalList = [
-    <UserCompNew />,
-    <UserCompDel />,
-    <UserCompUpdateId />,
-    <UserCompUpdatePw />,
-  ];
-
   const jwt = useRecoilValue(authAtom);
   const [selectionModel, setSelectionModel] =
     React.useState<GridSelectionModel>([]);
   const [page, setPage] = useState(1);
   const [modalComp, setModalComp] = useState(<UserCompNew />);
-
   const [open, setOpen] = React.useState(false);
-  const handleOpen = (flag: number) => {
-    setModalComp(modalList[flag]);
+  const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-
   const { isLoading, data } = useQuery<IPageDetail>(
-    "allUsers",
+    ["allUser", page],
     async () => await fetchAllUser(jwt.accessToken, page)
   );
 
@@ -51,13 +44,12 @@ function UserComp() {
   return isLoading ? (
     <span>loading...</span>
   ) : (
-    <Box style={{ height: "100%", width: "100%", minHeight: 400 }}>
+    <Box style={{ height: "100%", width: "100%", minHeight: "70vh" }}>
       <DataGrid
         getRowId={(row) => row.identifier}
         rows={data!.userDtoList}
         columns={columns}
-        pageSize={7}
-        rowsPerPageOptions={[+data!.totalPage / 7 + 1]}
+        hideFooter={true}
         checkboxSelection
         onSelectionModelChange={(newSelectionModel) => {
           setSelectionModel(newSelectionModel);
@@ -66,18 +58,56 @@ function UserComp() {
       />
 
       <Box display="flex">
-        <Button onClick={() => handleOpen(0)}>
+        <Button
+          onClick={() => {
+            setModalComp(<UserCompNew />);
+            handleOpen();
+          }}
+        >
           <Typography>계정 생성</Typography>
         </Button>
-        <Button onClick={() => handleOpen(1)}>
+        <Button
+          onClick={() => {
+            setModalComp(<UserCompDel />);
+            handleOpen();
+          }}
+        >
           <Typography>계정 삭제</Typography>
         </Button>
-        <Button onClick={() => handleOpen(2)}>
+        <Button
+          onClick={() => {
+            setModalComp(<UserCompUpdateId />);
+            handleOpen();
+          }}
+        >
           <Typography>ID 변경</Typography>
         </Button>
-        <Button onClick={() => handleOpen(3)}>
+        <Button
+          onClick={() => {
+            setModalComp(<UserCompUpdatePw />);
+            handleOpen();
+          }}
+        >
           <Typography>PW 변경</Typography>
         </Button>
+
+        <IconButton
+          aria-label="backward"
+          disabled={page < 2}
+          sx={{ ml: "auto" }}
+          onClick={() => setPage(page - 1)}
+        >
+          <ArrowBackIosNewIcon />
+        </IconButton>
+        <IconButton
+          aria-label="forward"
+          disabled={page == data!.totalPage}
+          onClick={() => {
+            setPage(page + 1);
+          }}
+        >
+          <ArrowForwardIosIcon />
+        </IconButton>
         <Modal
           open={open}
           onClose={handleClose}

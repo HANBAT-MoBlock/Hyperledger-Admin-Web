@@ -26,7 +26,7 @@ const drawerWidth = 240;
 // interface IDashboard {}
 
 function Dashboard() {
-  const [mainComponent, setMainComponent] = useState(<CoinComp />);
+  const [mainComponent, setMainComponent] = useState(<UserComp />);
   const sidebar = [
     <HomeComp />,
     <UserComp />,
