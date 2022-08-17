@@ -103,7 +103,7 @@ export const fetchTransferCoin = (
     body: JSON.stringify({
       coinName: coinName,
       coinValue: coinValue,
-      coinNameList: userNameList,
+      identifier: userNameList,
     }),
   });
 };
