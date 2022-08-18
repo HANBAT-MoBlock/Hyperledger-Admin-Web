@@ -1,6 +1,7 @@
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 import {
   ICoinDetail,
+  ICreateStoreRequest,
   IUserDetail,
   IUserModifyReq,
   UserRole,
@@ -142,6 +143,44 @@ export const fetchUpdateUserId = (jwt: string, userDto: IUserModifyReq) => {
       wantToChangeName: userDto.wantToChangeName,
       wantToChangePlainPassword: userDto.wantToChangePlainPassword,
       wantToChangeUserRole: userDto.wantToChangeUserRole,
+    }),
+  });
+};
+
+export const fetchCreateStore = (jwt: string, formData: FormData) => {
+  return fetch(`${BASE_URL}/admin/store`, {
+    method: "POST",
+    headers: {
+      jwt,
+    },
+    body: formData,
+  });
+};
+
+export const fetchAllStore = (jwt: string, page: number) => {
+  return fetch(`${BASE_URL}/user/stores?page=${page}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      jwt,
+    },
+  }).then((response) => response.json());
+};
+
+export const fetchDeleteStore = (
+  jwt: string,
+  name: string,
+  phoneNumber: string
+) => {
+  return fetch(`${BASE_URL}/admin/store`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      jwt,
+    },
+    body: JSON.stringify({
+      name: name,
+      phoneNumber: phoneNumber,
     }),
   });
 };

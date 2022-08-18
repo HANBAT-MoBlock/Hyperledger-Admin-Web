@@ -17,14 +17,6 @@ export interface IPageDetail {
   userDtoList: IUserDetail[];
 }
 
-export interface IUserModifyRequest {
-  requestedIdentifier: string;
-  wantToChangeIdentifier: string;
-  wantToChangeName: string;
-  wantToChangePlainPassword: string;
-  wantToChangeUserRole: UserRole;
-}
-
 export interface ICoinDtoList {
   name: string;
   issuance: number;
@@ -42,4 +34,23 @@ export interface IUserModifyReq {
   wantToChangeName: string;
   wantToChangePlainPassword: string | null;
   wantToChangeUserRole: UserRole;
+}
+
+export interface ICreateStoreRequest {
+  address: string;
+  phoneNumber: string;
+  storeName: string;
+}
+
+export interface IShopDetail {
+  totalUserNumber: number;
+  totalPage: number;
+  storeResponseList: IShopList[];
+}
+
+export interface IShopList {
+  name: string;
+  phoneNumber: string;
+  address: string;
+  storeImageFileName: string;
 }

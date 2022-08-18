@@ -31,7 +31,7 @@ const drawerWidth = 240;
 // interface IDashboard {}
 
 function Dashboard() {
-  const [mainComponent, setMainComponent] = useState(<UserComp />);
+  const [mainComponent, setMainComponent] = useState(<HomeComp />);
   const sidebar = [
     <HomeComp />,
     <UserComp />,

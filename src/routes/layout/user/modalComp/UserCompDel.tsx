@@ -6,7 +6,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
 import Button from "@mui/material/Button";
 import { fetchDeleteCoin, fetchDeleteUser } from "../../../../api";
-import { useEffect } from "react";
 
 const style = {
   position: "absolute" as "absolute",
