@@ -9,6 +9,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -42,8 +43,8 @@ function ShopCompNew() {
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
 
+  const [loading, setLoading] = useState(false);
   const inputFile = useRef<HTMLInputElement | null>(null);
-  const formData = new FormData();
   const [shopNumber, setShopNumber] = useState("");
   const [shopName, setShopName] = useState("");
   const [shopAddress, setShopAddress] = useState("");
@@ -112,33 +113,36 @@ function ShopCompNew() {
         </Grid>
       </Grid>
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           variant="contained"
           sx={{ ml: "auto", mt: 2 }}
-          onClick={async () =>
-            await fetchCreateStore(
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchCreateStore(
               jwt.accessToken,
               createForm(
                 {
                   storeName: shopName,
                   address: shopAddress,
-
                   phoneNumber: shopNumber,
                 },
                 imageFile
               )
             ).then((response) => {
-              setModalState(false);
+              setLoading((prevState) => !prevState);
+              setModalState((prevState) => !prevState);
+
               if (!response.ok) {
                 response.json().then((data) => alert(data.message));
               } else {
                 alert("생성 성공");
               }
-            })
-          }
+            });
+          }}
         >
           가맹점 추가
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );

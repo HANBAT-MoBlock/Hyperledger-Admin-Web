@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import { fetchDeleteStore } from "../../../../api";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { useState } from "react";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,6 +26,8 @@ type props = {
 };
 
 function ShopCompDel({ name, phoneNumber }: props) {
+  const [loading, setLoading] = useState(false);
+
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
 
@@ -37,24 +41,27 @@ function ShopCompDel({ name, phoneNumber }: props) {
       </Typography>
       <br />
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           sx={{ ml: "auto", mt: 1 }}
           variant="contained"
-          onClick={async () =>
-            await fetchDeleteStore(jwt.accessToken, name, phoneNumber).then(
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchDeleteStore(jwt.accessToken, name, phoneNumber).then(
               (response) => {
-                setModalState(false);
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 if (!response.ok) {
                   response.json().then((data) => alert(data.message));
                 } else {
                   alert("삭제 성공");
                 }
               }
-            )
-          }
+            );
+          }}
         >
           삭제하기
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );
