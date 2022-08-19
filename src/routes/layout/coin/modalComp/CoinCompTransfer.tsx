@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import { fetchCreateCoin, fetchTransferCoin } from "../../../../api";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -29,6 +30,7 @@ type props = {
 };
 
 function CoinCompTransfer({ coinList }: props) {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState("");
   const [coin, setCoin] = useState("");
   const [coinValue, setCoinValue] = useState("");
@@ -57,7 +59,7 @@ function CoinCompTransfer({ coinList }: props) {
           />
           <Button
             sx={{ ml: 2, mt: 1 }}
-            variant="contained"
+            variant="outlined"
             onClick={() => setUserList([...userList, user])}
           >
             추가
@@ -89,24 +91,27 @@ function CoinCompTransfer({ coinList }: props) {
       <Typography>선택된 학생 : {userList}</Typography>
       <br />
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           sx={{ ml: "auto", mt: 1 }}
           variant="contained"
-          onClick={async () =>
-            await fetchTransferCoin(jwt.accessToken, coin, coinValue, userList)
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchTransferCoin(jwt.accessToken, coin, coinValue, userList)
               .then((response) => {
-                setModalState(false);
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 if (!response.ok) {
                   response.json().then((data) => alert(data.message));
                 } else {
                   alert("전송 송공");
                 }
               })
-              .catch((reason) => alert(reason.json()))
-          }
+              .catch((reason) => alert(reason.json()));
+          }}
         >
           전송
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );

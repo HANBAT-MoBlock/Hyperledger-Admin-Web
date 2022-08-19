@@ -7,6 +7,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
 import Button from "@mui/material/Button";
 import { fetchDeleteCoin } from "../../../../api";
+import { useState } from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -25,6 +27,8 @@ type props = {
 };
 
 function DeleteCoin({ coinNames }: props) {
+  const [loading, setLoading] = useState(false);
+
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
 
@@ -38,24 +42,25 @@ function DeleteCoin({ coinNames }: props) {
       </Typography>
       <br />
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           sx={{ mt: 1, ml: "auto" }}
           variant="contained"
-          onClick={async () =>
-            await fetchDeleteCoin(jwt.accessToken, coinNames).then(
-              (response) => {
-                setModalState(false);
-                if (!response.ok) {
-                  response.json().then((data) => alert(data.message));
-                } else {
-                  alert("삭제 성공");
-                }
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchDeleteCoin(jwt.accessToken, coinNames).then((response) => {
+              setLoading((prevState) => !prevState);
+              setModalState((prevState) => !prevState);
+              if (!response.ok) {
+                response.json().then((data) => alert(data.message));
+              } else {
+                alert("삭제 성공");
               }
-            )
-          }
+            });
+          }}
         >
           제거
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );

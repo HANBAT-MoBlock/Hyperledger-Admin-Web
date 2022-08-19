@@ -7,6 +7,7 @@ import { fetchCreateCoin } from "../../../../api";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -22,6 +23,7 @@ const style = {
 
 function CoinCompNew() {
   const [coinName, setCoinName] = useState("");
+  const [loading, setLoading] = useState(false);
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
 
@@ -40,24 +42,25 @@ function CoinCompNew() {
       />
       <br />
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           sx={{ mt: 1, ml: "auto" }}
           variant="contained"
-          onClick={async () =>
-            await fetchCreateCoin(jwt.accessToken, coinName).then(
-              (response) => {
-                setModalState(false);
-                if (!response.ok) {
-                  response.json().then((data) => alert(data.message));
-                } else {
-                  alert("발행 성공");
-                }
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchCreateCoin(jwt.accessToken, coinName).then((response) => {
+              setLoading((prevState) => !prevState);
+              setModalState((prevState) => !prevState);
+              if (!response.ok) {
+                response.json().then((data) => alert(data.message));
+              } else {
+                alert("발행 성공");
               }
-            )
-          }
+            });
+          }}
         >
           발행
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );

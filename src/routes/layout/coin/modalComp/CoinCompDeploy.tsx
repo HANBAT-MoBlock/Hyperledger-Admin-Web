@@ -10,6 +10,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
 import { ICoinDtoList, UserRole } from "../../../../interfaces";
 import { fetchTransferCoinAll } from "../../../../api";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -28,6 +29,8 @@ type props = {
 };
 
 function CoinCompDeploy({ coinList }: props) {
+  const [loading, setLoading] = useState(false);
+
   const [coinValue, setCoinValue] = useState("");
   const [coinName, setCoinName] = useState("");
   const [userRole, setUserRole] = useState(UserRole.ROLE_STUDENT);
@@ -88,27 +91,30 @@ function CoinCompDeploy({ coinList }: props) {
       </Grid>
       <br />
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           sx={{ ml: "auto", mt: 1 }}
           variant="contained"
-          onClick={async () =>
-            await fetchTransferCoinAll(
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchTransferCoinAll(
               jwt.accessToken,
               coinName,
               coinValue,
               userRole
             ).then((response) => {
-              setModalState(false);
+              setLoading((prevState) => !prevState);
+              setModalState((prevState) => !prevState);
               if (!response.ok) {
                 response.json().then((data) => alert(data.message));
               } else {
                 alert("전송 송공");
               }
-            })
-          }
+            });
+          }}
         >
           배포
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );
