@@ -64,7 +64,7 @@ function UserCompUpdatePw({ userDto }: props) {
       <TextField
         size="small"
         sx={{ mt: 1 }}
-        label="ID"
+        label="PW"
         variant="outlined"
         onChange={(event) => setUserPW(event.target.value)}
       />

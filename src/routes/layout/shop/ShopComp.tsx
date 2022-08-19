@@ -42,7 +42,7 @@ function ShopComp() {
     //     alert("한명의 유저를 선택해 주세요");
     //     break;
     // }
-    flag ? alert("한개의 가맹점을 선택하여 주세요") : setModState(true);
+    flag ? setModState(true) : alert("한개의 가맹점을 선택하여 주세요");
   };
 
   const handleClose = () => setModState(false);
@@ -88,7 +88,7 @@ function ShopComp() {
             setModalComp(
               <ShopCompDel name={selectedName} phoneNumber={selectedNumber} />
             );
-            handleOpen(selectedName === "");
+            handleOpen(selectedName !== "");
           }}
         >
           <Typography>가맹점 삭제</Typography>

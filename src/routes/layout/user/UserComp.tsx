@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import {
   DataGrid,
   GridCellParams,
@@ -18,9 +18,38 @@ import { IconButton, Modal } from "@mui/material";
 import UserCompUpdatePw from "./modalComp/UserCompUpdatePw";
 import UserCompNew from "./modalComp/UserCompNew";
 import UserCompDel from "./modalComp/UserCompDel";
-import UserCompUpdateId from "./modalComp/UserCompUpdateId";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import UserCompUpdateId from "./modalComp/UserCompUpdateId";
+
+function updateState(
+  data: IPageDetail | undefined,
+  selectionModel: GridSelectionModel,
+  selectionModelDto: IUserDetail,
+  setSelectionModelDto: SetStateAction<any>
+): Promise<IUserDetail> {
+  return new Promise((resolve, reject) => {
+    if (typeof data === undefined) {
+      reject(undefined);
+    }
+    console.log("1");
+    setSelectionModelDto(
+      data!.userDtoList.filter(
+        (value) => value.identifier === selectionModel[0]
+      )[0]
+    );
+    console.log("2");
+    if (selectionModel[0] == selectionModelDto.identifier) {
+      console.log("resolve");
+      console.log(selectionModelDto);
+      resolve(selectionModelDto);
+    } else {
+      console.log("reject");
+      console.log(selectionModelDto);
+      reject(selectionModelDto);
+    }
+  });
+}
 
 function UserComp() {
   const jwt = useRecoilValue(authAtom);
@@ -74,9 +103,6 @@ function UserComp() {
           setSelectionModel(newSelectionModel);
         }}
         selectionModel={selectionModel}
-        onCellClick={(params: GridCellParams) =>
-          setSelectionModelDto(params.row)
-        }
       />
 
       <Box display="flex">
@@ -98,7 +124,15 @@ function UserComp() {
         </Button>
         <Button
           onClick={() => {
-            setModalComp(<UserCompUpdateId userDto={selectionModelDto} />);
+            setModalComp(
+              <UserCompUpdateId
+                userDto={
+                  data!.userDtoList.filter(
+                    (value) => value.identifier === selectionModel[0]
+                  )[0]
+                }
+              />
+            );
             handleOpen(selectionModel.length);
           }}
         >
@@ -106,7 +140,15 @@ function UserComp() {
         </Button>
         <Button
           onClick={() => {
-            setModalComp(<UserCompUpdatePw userDto={selectionModelDto} />);
+            setModalComp(
+              <UserCompUpdatePw
+                userDto={
+                  data!.userDtoList.filter(
+                    (value) => value.identifier === selectionModel[0]
+                  )[0]
+                }
+              />
+            );
             handleOpen(selectionModel.length);
           }}
         >

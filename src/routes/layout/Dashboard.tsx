@@ -11,9 +11,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import CoinChart from "./dashboard/CoinChart";
 import HomeComp from "./dashboard/HomeComp";
 import { useState } from "react";
 import UserComp from "./user/UserComp";
@@ -27,8 +24,6 @@ import StoreIcon from "@mui/icons-material/Store";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 
 const drawerWidth = 240;
-
-// interface IDashboard {}
 
 function Dashboard() {
   const [mainComponent, setMainComponent] = useState(<HomeComp />);
