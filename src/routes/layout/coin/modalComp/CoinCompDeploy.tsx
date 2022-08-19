@@ -32,7 +32,7 @@ function CoinCompDeploy({ coinList }: props) {
   const [loading, setLoading] = useState(false);
 
   const [coinValue, setCoinValue] = useState("");
-  const [coinName, setCoinName] = useState("");
+  const [coinName, setCoinName] = useState(coinList[0].name);
   const [userRole, setUserRole] = useState(UserRole.ROLE_STUDENT);
 
   const jwt = useRecoilValue(authAtom);

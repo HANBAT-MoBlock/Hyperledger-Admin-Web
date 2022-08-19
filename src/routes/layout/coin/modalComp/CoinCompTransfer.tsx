@@ -32,7 +32,7 @@ type props = {
 function CoinCompTransfer({ coinList }: props) {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState("");
-  const [coin, setCoin] = useState("");
+  const [coinName, setCoinName] = useState(coinList[0].name);
   const [coinValue, setCoinValue] = useState("");
   const [userList, setUserList] = useState<string[]>([]);
   const jwt = useRecoilValue(authAtom);
@@ -74,7 +74,7 @@ function CoinCompTransfer({ coinList }: props) {
               name: "Coin",
               id: "coin-native",
             }}
-            onChange={(event) => setCoin(event.target.value)}
+            onChange={(event) => setCoinName(event.target.value)}
           >
             {coinOptions}
           </NativeSelect>
@@ -97,7 +97,7 @@ function CoinCompTransfer({ coinList }: props) {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchTransferCoin(jwt.accessToken, coin, coinValue, userList)
+            fetchTransferCoin(jwt.accessToken, coinName, coinValue, userList)
               .then((response) => {
                 setLoading((prevState) => !prevState);
                 setModalState((prevState) => !prevState);
