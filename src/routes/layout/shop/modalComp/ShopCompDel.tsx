@@ -35,8 +35,10 @@ function ShopCompDel({ name, phoneNumber }: props) {
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
         삭제할 가맹점 : {name} / {phoneNumber}
       </Typography>
+      <br />
       <Box display="flex">
         <Button
+          sx={{ ml: "auto", mt: 1 }}
           variant="contained"
           onClick={async () =>
             await fetchDeleteStore(jwt.accessToken, name, phoneNumber).then(

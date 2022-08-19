@@ -51,22 +51,10 @@ function ShopCompNew() {
   const [imageFileName, setImageFileName] =
     useState("사용가능한 확장자 : jpeg");
 
-  const sampleData: ICreateStoreRequest = {
-    storeName: "test",
-    phoneNumber: "01044444444",
-    address: "test",
-  };
-
-  const blob = new Blob([JSON.stringify(sampleData)], {
-    type: "application/json",
-  });
-
-  formData.append("createStoreRequest", blob);
-
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Create Shop
+        가맹점 추가
       </Typography>
       <Grid container spacing={1} sx={{ mt: 2 }}>
         <Grid item xs={6}>
@@ -112,10 +100,6 @@ function ShopCompNew() {
                 } else {
                   setImageFile(event.target.files[0]);
                   setImageFileName(event.target.files[0].name);
-                  // formData.append("multipartFile", event.target.files[0]);
-                  // fetchCreateStore(jwt.accessToken, formData).then((response) =>
-                  //   console.log(response)
-                  // );
                 }
               }}
             />

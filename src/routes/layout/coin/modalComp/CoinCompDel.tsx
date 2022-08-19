@@ -31,28 +31,32 @@ function DeleteCoin({ coinNames }: props) {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        CoinDelete
+        코인 삭제
       </Typography>
       <Typography sx={{ mt: 2 }}>
         삭제될 코인 : {coinNames.toString()}
       </Typography>
       <br />
-      <Button
-        sx={{ mt: 1 }}
-        variant="contained"
-        onClick={async () =>
-          await fetchDeleteCoin(jwt.accessToken, coinNames).then((response) => {
-            setModalState(false);
-            if (!response.ok) {
-              response.json().then((data) => alert(data.message));
-            } else {
-              alert("삭제 성공");
-            }
-          })
-        }
-      >
-        제거
-      </Button>
+      <Box display="flex">
+        <Button
+          sx={{ mt: 1, ml: "auto" }}
+          variant="contained"
+          onClick={async () =>
+            await fetchDeleteCoin(jwt.accessToken, coinNames).then(
+              (response) => {
+                setModalState(false);
+                if (!response.ok) {
+                  response.json().then((data) => alert(data.message));
+                } else {
+                  alert("삭제 성공");
+                }
+              }
+            )
+          }
+        >
+          제거
+        </Button>
+      </Box>
     </Box>
   );
 }

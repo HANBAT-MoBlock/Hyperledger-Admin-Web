@@ -52,7 +52,7 @@ function UserCompUpdatePw({ userDto }: props) {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        User Update PW
+        PW 변경
       </Typography>
       <Typography sx={{ mt: 2 }}>
         변경할 유저 ID : {userDto.identifier}
@@ -69,22 +69,26 @@ function UserCompUpdatePw({ userDto }: props) {
         onChange={(event) => setUserPW(event.target.value)}
       />
       <br />
-      <Button
-        sx={{ mt: 1 }}
-        variant="contained"
-        onClick={async () =>
-          await fetchUpdateUserId(jwt.accessToken, reqDto).then((response) => {
-            setModalState(false);
-            if (!response.ok) {
-              response.json().then((data) => alert(data.message));
-            } else {
-              alert("변경 성공");
-            }
-          })
-        }
-      >
-        PW 변경
-      </Button>
+      <Box display="flex">
+        <Button
+          sx={{ mt: 1, ml: "auto" }}
+          variant="contained"
+          onClick={async () =>
+            await fetchUpdateUserId(jwt.accessToken, reqDto).then(
+              (response) => {
+                setModalState(false);
+                if (!response.ok) {
+                  response.json().then((data) => alert(data.message));
+                } else {
+                  alert("변경 성공");
+                }
+              }
+            )
+          }
+        >
+          PW 변경
+        </Button>
+      </Box>
     </Box>
   );
 }

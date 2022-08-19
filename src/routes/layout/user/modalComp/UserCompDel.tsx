@@ -30,28 +30,32 @@ function UserCompDel({ userList }: props) {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        User Delete
+        계정 삭제
       </Typography>
       <Typography sx={{ mt: 2 }}>
         삭제할 유저 : {userList.toString()}
       </Typography>
       <br />
-      <Button
-        sx={{ mt: 1 }}
-        variant="contained"
-        onClick={async () =>
-          await fetchDeleteUser(jwt.accessToken, userList).then((response) => {
-            setModalState(false);
-            if (!response.ok) {
-              response.json().then((data) => alert(data.message));
-            } else {
-              alert("삭제 성공");
-            }
-          })
-        }
-      >
-        제거
-      </Button>
+      <Box display="flex">
+        <Button
+          sx={{ mt: 1, ml: "auto" }}
+          variant="contained"
+          onClick={async () =>
+            await fetchDeleteUser(jwt.accessToken, userList).then(
+              (response) => {
+                setModalState(false);
+                if (!response.ok) {
+                  response.json().then((data) => alert(data.message));
+                } else {
+                  alert("삭제 성공");
+                }
+              }
+            )
+          }
+        >
+          제거
+        </Button>
+      </Box>
     </Box>
   );
 }

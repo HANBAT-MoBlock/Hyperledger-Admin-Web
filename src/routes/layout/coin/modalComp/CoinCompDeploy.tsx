@@ -1,16 +1,15 @@
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import { InputLabel, NativeSelect } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { InputLabel, NativeSelect, responsiveFontSizes } from "@mui/material";
-import { ICoinDtoList } from "../../../../interfaces";
 import * as React from "react";
-import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 import { useState } from "react";
 import Button from "@mui/material/Button";
-import { fetchCreateCoin, fetchTransferCoin } from "../../../../api";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
+import { ICoinDtoList, UserRole } from "../../../../interfaces";
+import { fetchTransferCoinAll } from "../../../../api";
 
 const style = {
   position: "absolute" as "absolute",
@@ -28,11 +27,11 @@ type props = {
   coinList: ICoinDtoList[];
 };
 
-function TransferCoin({ coinList }: props) {
-  const [user, setUser] = useState("");
-  const [coin, setCoin] = useState("");
+function CoinCompDeploy({ coinList }: props) {
   const [coinValue, setCoinValue] = useState("");
-  const [userList, setUserList] = useState<string[]>([]);
+  const [coinName, setCoinName] = useState("");
+  const [userRole, setUserRole] = useState(UserRole.ROLE_STUDENT);
+
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
 
@@ -41,43 +40,45 @@ function TransferCoin({ coinList }: props) {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        TransferCoin
+        코인 전송
       </Typography>
-      <Grid container spacing={1} sx={{ mt: 2 }}>
-        <Grid item xs={12}>
-          <InputLabel variant="standard" htmlFor="coin-native">
-            User
-          </InputLabel>
-          <TextField
-            size="small"
-            sx={{ mt: 1 }}
-            label="학번"
-            variant="outlined"
-            onChange={(event) => setUser(event.target.value)}
-          />
-          <Button
-            sx={{ ml: 2, mt: 1 }}
-            variant="contained"
-            onClick={() => setUserList([...userList, user])}
-          >
-            추가
-          </Button>
-        </Grid>
-        <Grid item xs={3}>
+      <Grid container spacing={2} sx={{ mt: 2 }}>
+        <Grid item xs={4}>
           <InputLabel variant="standard" htmlFor="coin-native">
             Coin
           </InputLabel>
           <NativeSelect
+            onChange={(event) => setCoinName(event.target.value)}
             inputProps={{
               name: "Coin",
               id: "coin-native",
             }}
-            onChange={(event) => setCoin(event.target.value)}
           >
             {coinOptions}
           </NativeSelect>
         </Grid>
-        <Grid item xs={5}>
+        <Grid item xs={4}>
+          <InputLabel variant="standard" htmlFor="coin-native">
+            Role
+          </InputLabel>
+          <NativeSelect
+            onChange={(event) =>
+              setUserRole(
+                event.target.value == "1"
+                  ? UserRole.ROLE_STUDENT
+                  : UserRole.ROLE_STOREMANAGER
+              )
+            }
+            inputProps={{
+              name: "Role",
+              id: "role-native",
+            }}
+          >
+            <option value={1}>학생</option>
+            <option value={2}>상점</option>
+          </NativeSelect>
+        </Grid>
+        <Grid item xs={4}>
           <TextField
             label="코인수량"
             variant="outlined"
@@ -86,13 +87,17 @@ function TransferCoin({ coinList }: props) {
         </Grid>
       </Grid>
       <br />
-      <Typography>선택된 학생 : {userList}</Typography>
-      <br />
-      <Button
-        variant="contained"
-        onClick={async () =>
-          await fetchTransferCoin(jwt.accessToken, coin, coinValue, userList)
-            .then((response) => {
+      <Box display="flex">
+        <Button
+          sx={{ ml: "auto", mt: 1 }}
+          variant="contained"
+          onClick={async () =>
+            await fetchTransferCoinAll(
+              jwt.accessToken,
+              coinName,
+              coinValue,
+              userRole
+            ).then((response) => {
               setModalState(false);
               if (!response.ok) {
                 response.json().then((data) => alert(data.message));
@@ -100,13 +105,12 @@ function TransferCoin({ coinList }: props) {
                 alert("전송 송공");
               }
             })
-            .catch((reason) => alert(reason.json()))
-        }
-      >
-        전송
-      </Button>
+          }
+        >
+          배포
+        </Button>
+      </Box>
     </Box>
   );
 }
-
-export default TransferCoin;
+export default CoinCompDeploy;

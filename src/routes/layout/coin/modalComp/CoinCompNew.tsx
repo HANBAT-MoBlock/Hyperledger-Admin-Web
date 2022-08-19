@@ -20,7 +20,7 @@ const style = {
   p: 4,
 };
 
-function CreateCoin() {
+function CoinCompNew() {
   const [coinName, setCoinName] = useState("");
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
@@ -28,7 +28,7 @@ function CreateCoin() {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        CreateCoin
+        코인 생성
       </Typography>
 
       <TextField
@@ -39,24 +39,28 @@ function CreateCoin() {
         onChange={(event) => setCoinName(event.target.value)}
       />
       <br />
-      <Button
-        sx={{ mt: 1 }}
-        variant="contained"
-        onClick={async () =>
-          await fetchCreateCoin(jwt.accessToken, coinName).then((response) => {
-            setModalState(false);
-            if (!response.ok) {
-              response.json().then((data) => alert(data.message));
-            } else {
-              alert("발행 성공");
-            }
-          })
-        }
-      >
-        발행
-      </Button>
+      <Box display="flex">
+        <Button
+          sx={{ mt: 1, ml: "auto" }}
+          variant="contained"
+          onClick={async () =>
+            await fetchCreateCoin(jwt.accessToken, coinName).then(
+              (response) => {
+                setModalState(false);
+                if (!response.ok) {
+                  response.json().then((data) => alert(data.message));
+                } else {
+                  alert("발행 성공");
+                }
+              }
+            )
+          }
+        >
+          발행
+        </Button>
+      </Box>
     </Box>
   );
 }
 
-export default CreateCoin;
+export default CoinCompNew;

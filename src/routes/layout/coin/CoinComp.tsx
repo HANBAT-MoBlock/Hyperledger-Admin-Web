@@ -9,10 +9,10 @@ import { useQuery, useMutation } from "react-query";
 import { SetStateAction, useEffect, useState } from "react";
 import { fetchAllCoins, fetchAllUser } from "../../../api";
 import { IconButton, Modal } from "@mui/material";
-import CreateCoin from "./modalComp/CreateCoin";
-import DeleteCoin from "./modalComp/DeleteCoin";
-import TransferCoin from "./modalComp/TransferCoin";
-import TransferCoinAll from "./modalComp/TransferCoinAll";
+import CoinCompNew from "./modalComp/CoinCompNew";
+import DeleteCoin from "./modalComp/CoinCompDel";
+import CoinCompTransfer from "./modalComp/CoinCompTransfer";
+import CoinCompDeploy from "./modalComp/CoinCompDeploy";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ICoinDetail } from "../../../interfaces";
@@ -54,7 +54,7 @@ function CoinComp() {
       <Box display="flex">
         <Button
           onClick={() => {
-            setModalComp(<CreateCoin />);
+            setModalComp(<CoinCompNew />);
             handleOpen();
           }}
         >
@@ -62,7 +62,7 @@ function CoinComp() {
         </Button>
         <Button
           onClick={() => {
-            setModalComp(<TransferCoinAll coinList={data!.coinDtoList} />);
+            setModalComp(<CoinCompDeploy coinList={data!.coinDtoList} />);
             handleOpen();
           }}
         >
@@ -70,7 +70,7 @@ function CoinComp() {
         </Button>
         <Button
           onClick={() => {
-            setModalComp(<TransferCoin coinList={data!.coinDtoList} />);
+            setModalComp(<CoinCompTransfer coinList={data!.coinDtoList} />);
             handleOpen();
           }}
         >
