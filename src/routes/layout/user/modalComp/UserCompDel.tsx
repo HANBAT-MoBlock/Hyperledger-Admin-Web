@@ -6,6 +6,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
 import Button from "@mui/material/Button";
 import { fetchDeleteCoin, fetchDeleteUser } from "../../../../api";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { useState } from "react";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,6 +26,7 @@ type props = {
 };
 
 function UserCompDel({ userList }: props) {
+  const [loading, setLoading] = useState(false);
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
 
@@ -37,24 +40,25 @@ function UserCompDel({ userList }: props) {
       </Typography>
       <br />
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           sx={{ mt: 1, ml: "auto" }}
           variant="contained"
-          onClick={async () =>
-            await fetchDeleteUser(jwt.accessToken, userList).then(
-              (response) => {
-                setModalState(false);
-                if (!response.ok) {
-                  response.json().then((data) => alert(data.message));
-                } else {
-                  alert("삭제 성공");
-                }
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchDeleteUser(jwt.accessToken, userList).then((response) => {
+              setLoading((prevState) => !prevState);
+              setModalState((prevState) => !prevState);
+              if (!response.ok) {
+                response.json().then((data) => alert(data.message));
+              } else {
+                alert("삭제 성공");
               }
-            )
-          }
+            });
+          }}
         >
           제거
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );

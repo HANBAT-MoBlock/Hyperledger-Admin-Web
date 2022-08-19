@@ -9,6 +9,7 @@ import { InputLabel } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { fetchUpdateUserId } from "../../../../api";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -27,6 +28,7 @@ type props = {
 };
 
 function UserCompUpdatePw({ userDto }: props) {
+  const [loading, setLoading] = useState(false);
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
   const [userPW, setUserPW] = useState("");
@@ -70,24 +72,25 @@ function UserCompUpdatePw({ userDto }: props) {
       />
       <br />
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           sx={{ mt: 1, ml: "auto" }}
           variant="contained"
-          onClick={async () =>
-            await fetchUpdateUserId(jwt.accessToken, reqDto).then(
-              (response) => {
-                setModalState(false);
-                if (!response.ok) {
-                  response.json().then((data) => alert(data.message));
-                } else {
-                  alert("변경 성공");
-                }
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchUpdateUserId(jwt.accessToken, reqDto).then((response) => {
+              setLoading((prevState) => !prevState);
+              setModalState((prevState) => !prevState);
+              if (!response.ok) {
+                response.json().then((data) => alert(data.message));
+              } else {
+                alert("변경 성공");
               }
-            )
-          }
+            });
+          }}
         >
           PW 변경
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );

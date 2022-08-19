@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import { fetchDeleteUser, fetchUpdateUserId } from "../../../../api";
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 import { InputLabel } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -28,6 +29,8 @@ type props = {
 };
 
 function UserCompUpdateId({ userDto }: props) {
+  const [loading, setLoading] = useState(false);
+
   const jwt = useRecoilValue(authAtom);
   const setModalState = useSetRecoilState(modalState);
   const [userId, setUserID] = useState("");
@@ -38,6 +41,7 @@ function UserCompUpdateId({ userDto }: props) {
     wantToChangePlainPassword: null,
     requestedIdentifier: "",
   });
+
   useEffect(
     () =>
       setReqDto({
@@ -53,7 +57,7 @@ function UserCompUpdateId({ userDto }: props) {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        ID변경
+        ID 변경
       </Typography>
       <Typography sx={{ mt: 2 }}>
         변경할 유저 ID : {userDto.identifier}
@@ -71,24 +75,25 @@ function UserCompUpdateId({ userDto }: props) {
       />
       <br />
       <Box display="flex">
-        <Button
+        <LoadingButton
+          loading={loading}
           sx={{ mt: 1, ml: "auto" }}
           variant="contained"
-          onClick={async () =>
-            await fetchUpdateUserId(jwt.accessToken, reqDto).then(
-              (response) => {
-                setModalState(false);
-                if (!response.ok) {
-                  response.json().then((data) => alert(data.message));
-                } else {
-                  alert("변경 성공");
-                }
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchUpdateUserId(jwt.accessToken, reqDto).then((response) => {
+              setLoading((prevState) => !prevState);
+              setModalState((prevState) => !prevState);
+              if (!response.ok) {
+                response.json().then((data) => alert(data.message));
+              } else {
+                alert("변경 성공");
               }
-            )
-          }
+            });
+          }}
         >
           ID 변경
-        </Button>
+        </LoadingButton>
       </Box>
     </Box>
   );
