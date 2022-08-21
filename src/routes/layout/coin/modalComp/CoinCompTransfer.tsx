@@ -5,7 +5,6 @@ import Grid from "@mui/material/Grid";
 import { InputLabel, NativeSelect, responsiveFontSizes } from "@mui/material";
 import { ICoinDtoList } from "../../../../interfaces";
 import * as React from "react";
-import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { fetchCreateCoin, fetchTransferCoin } from "../../../../api";

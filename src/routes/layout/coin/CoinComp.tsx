@@ -94,7 +94,7 @@ function CoinComp() {
         </IconButton>
         <IconButton
           aria-label="forward"
-          disabled={page == data!.totalPage}
+          disabled={page == data!.totalPage || data!.totalPage == 0}
           onClick={() => {
             setPage(page + 1);
           }}

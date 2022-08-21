@@ -1,6 +1,20 @@
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import { InputLabel, NativeSelect, responsiveFontSizes } from "@mui/material";
+import { ICoinDtoList, UserRole } from "../../../../interfaces";
 import * as React from "react";
+import { useState } from "react";
+import Button from "@mui/material/Button";
+import {
+  fetchCreateCoin,
+  fetchCreateUser,
+  fetchTransferCoin,
+} from "../../../../api";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { authAtom, modalState } from "../../../../atoms";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
   position: "absolute" as "absolute",
@@ -15,14 +29,111 @@ const style = {
 };
 
 function UserCompNew() {
+  const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState(UserRole.ROLE_STUDENT);
+  const jwt = useRecoilValue(authAtom);
+  const setModalState = useSetRecoilState(modalState);
+
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        계정 생성
+        유저 생성
       </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </Typography>
+      <Grid container spacing={1} sx={{ mt: 2 }}>
+        <Grid item xs={12}>
+          {/*<InputLabel variant="standard" htmlFor="coin-native">*/}
+          {/*  ID*/}
+          {/*</InputLabel>*/}
+          <TextField
+            fullWidth
+            size="small"
+            sx={{ mt: 1 }}
+            label="ID"
+            variant="outlined"
+            onChange={(event) => setUserId(event.target.value)}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          {/*<InputLabel variant="standard" htmlFor="coin-native">*/}
+          {/*  Password*/}
+          {/*</InputLabel>*/}
+          <TextField
+            fullWidth
+            size="small"
+            sx={{ mt: 1 }}
+            label="Password"
+            variant="outlined"
+            onChange={(event) => setUserPassword(event.target.value)}
+          />
+        </Grid>
+        <Grid item xs={9}>
+          {/*<InputLabel variant="standard" htmlFor="coin-native">*/}
+          {/*  Name*/}
+          {/*</InputLabel>*/}
+          <TextField
+            fullWidth
+            size="small"
+            sx={{ mt: 1 }}
+            label="Name"
+            variant="outlined"
+            onChange={(event) => setUserName(event.target.value)}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <InputLabel variant="standard" htmlFor="coin-native">
+            Role
+          </InputLabel>
+          <NativeSelect
+            onChange={(event) =>
+              setUserRole(
+                event.target.value == "1"
+                  ? UserRole.ROLE_STUDENT
+                  : UserRole.ROLE_STOREMANAGER
+              )
+            }
+            inputProps={{
+              name: "Role",
+              id: "role-native",
+            }}
+          >
+            <option value={1}>학생</option>
+            <option value={2}>상점</option>
+          </NativeSelect>
+        </Grid>
+      </Grid>
+      <br />
+      <Box display="flex">
+        <LoadingButton
+          loading={loading}
+          sx={{ ml: "auto", mt: 1 }}
+          variant="contained"
+          onClick={() => {
+            setLoading((prevState) => !prevState);
+            fetchCreateUser(
+              jwt.accessToken,
+              userName,
+              userId,
+              userPassword,
+              userRole
+            )
+              .then((response) => {
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
+                if (!response.ok) {
+                  response.json().then((data) => alert(data.message));
+                } else {
+                  alert("생성 성공");
+                }
+              })
+              .catch((reason) => alert(reason.json()));
+          }}
+        >
+          유저 생성
+        </LoadingButton>
+      </Box>
     </Box>
   );
 }

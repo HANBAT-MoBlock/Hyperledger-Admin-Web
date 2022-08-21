@@ -34,14 +34,6 @@ function ShopComp() {
   const [selectedNumber, setSelectedNumber] = useState("");
 
   const handleOpen = (flag: boolean) => {
-    // switch (flag) {
-    //   case 1:
-    //     setModState(true);
-    //     break;
-    //   default:
-    //     alert("한명의 유저를 선택해 주세요");
-    //     break;
-    // }
     flag ? setModState(true) : alert("한개의 가맹점을 선택하여 주세요");
   };
 
@@ -55,7 +47,6 @@ function ShopComp() {
     { field: "phoneNumber", headerName: "PhoneNumber", width: 130 },
     { field: "name", headerName: "Name", width: 130 },
     { field: "address", headerName: "Address", width: 200 },
-    // { field: "storeImageFileName", headerName: "ImageName", width: 200 },
   ];
 
   return isLoading ? (
@@ -68,7 +59,6 @@ function ShopComp() {
         columns={columns}
         hideFooter={true}
         onCellClick={(params: GridCellParams) => {
-          console.log(params.row);
           setSelectedName(params.row.name);
           setSelectedNumber(params.row.phoneNumber);
         }}

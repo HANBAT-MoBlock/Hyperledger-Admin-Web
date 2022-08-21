@@ -184,3 +184,48 @@ export const fetchDeleteStore = (
     }),
   });
 };
+
+export const fetchTransaction = (
+  jwt: string,
+  fromLocalDateTime: string,
+  untilLocalDateTime: string,
+  senderIdentifier: string,
+  receiverIdentifier: string,
+  dateTimeRange: string,
+  page: number,
+  senderUserRole: string | UserRole,
+  receiverUserRole: string | UserRole
+) => {
+  return fetch(
+    `${BASE_URL}/admin/trade?dateTimeRange=${dateTimeRange}&fromLocalDateTime=${fromLocalDateTime}&untilLocalDateTime=${untilLocalDateTime}&page=${page}&receiverIdentifier=${receiverIdentifier}&senderIdentifier=${senderIdentifier}&receiverUserRole=${receiverUserRole}&senderUserRole=${senderUserRole}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        jwt,
+      },
+    }
+  ).then((response) => response.json());
+};
+
+export const fetchCreateUser = (
+  jwt: string,
+  identifier: string,
+  name: string,
+  password: string,
+  userRole: UserRole
+) => {
+  return fetch(`${BASE_URL}/user`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      jwt,
+    },
+    body: JSON.stringify({
+      identifier: identifier,
+      name: name,
+      password: password,
+      userRole: userRole,
+    }),
+  });
+};

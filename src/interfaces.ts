@@ -54,3 +54,20 @@ export interface IShopList {
   address: string;
   storeImageFileName: string;
 }
+
+export interface ITransactionList {
+  amount: number;
+  coinName: string;
+  dateCreated: string;
+  receiverIdentifier: string;
+  receiverName: string;
+  senderIdentifier: string;
+  senderName: string;
+  transactionId: string;
+}
+
+export interface ITransactionResponse {
+  totalTradeNumber: number;
+  totalPage: number;
+  transferResponseList: ITransactionList[];
+}

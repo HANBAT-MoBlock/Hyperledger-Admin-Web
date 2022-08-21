@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { UserRole } from "./interfaces";
 
 export const authAtom = atom({
   key: "auth",
@@ -8,4 +9,29 @@ export const authAtom = atom({
 export const modalState = atom({
   key: "modal",
   default: false,
+});
+
+export const transactionDate = atom({
+  key: "trDate",
+  default: { dateTimeRange: "", fromLocalDateTime: "", untilLocalDateTime: "" },
+});
+
+export const transactionSender = atom({
+  key: "trSender",
+  default: "",
+});
+
+export const transactionReceiver = atom({
+  key: "trReceiver",
+  default: "",
+});
+
+export const transactionSenderRole = atom({
+  key: "trSenderRole",
+  default: "",
+});
+
+export const transactionReceiverRole = atom({
+  key: "trReceiverRole",
+  default: "",
 });
