@@ -4,10 +4,11 @@ import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   authAtom,
   modalState,
+  transactionDate,
   transactionReceiver,
   transactionReceiverRole,
   transactionSender,
@@ -48,6 +49,7 @@ function TransactionComp() {
   const [receiverRole, setReceiverRole] = useRecoilState(
     transactionReceiverRole
   );
+  const [dateObject, setDateObject] = useRecoilState(transactionDate);
 
   const [page, setPage] = useState(1);
   const [transactionDetail, setTransactionDetail] =
@@ -64,18 +66,36 @@ function TransactionComp() {
     setSender("");
     setReceiver("");
     setSenderRole("");
+    setReceiverRole("");
+    setDateObject({
+      dateTimeRange: "YEAR",
+      fromLocalDateTime: `${
+        +year - 1
+      }-${month}-${day}T${hours}:${minutes}:${seconds}`,
+      untilLocalDateTime: `${
+        +year + 2
+      }-${month}-${day}T${hours}:${minutes}:${seconds}`,
+    });
   }, []);
 
   const { isLoading, data } = useQuery<ITransactionResponse>(
-    ["allTransaction", page, sender, receiver, senderRole, receiverRole],
+    [
+      "allTransaction",
+      page,
+      sender,
+      receiver,
+      senderRole,
+      receiverRole,
+      dateObject,
+    ],
     async () =>
       await fetchTransaction(
         jwt.accessToken,
-        `${+year - 1}-${month}-${day}T${hours}:${minutes}:${seconds}`,
-        `${+year + 2}-${month}-${day}T${hours}:${minutes}:${seconds}`,
+        dateObject.fromLocalDateTime,
+        dateObject.untilLocalDateTime,
         sender,
         receiver,
-        "YEAR",
+        dateObject.dateTimeRange,
         page,
         senderRole,
         receiverRole
