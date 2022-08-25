@@ -1,7 +1,7 @@
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 
 import { IUserJoinRequest, IUserModifyReq, UserRole } from "./interfaces";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const BASE_URL = "http://119.203.225.3:8081";
 
@@ -9,10 +9,12 @@ axios.interceptors.response.use(
   function (response) {
     return response;
   },
-  function (error) {
-    // localStorage.clear();
-    // window.location.href = "/login";
 
+  function (error) {
+    if (error.response.status === 401) {
+      localStorage.clear();
+      window.location.href = "/login";
+    }
     return Promise.reject(error);
   }
 );
