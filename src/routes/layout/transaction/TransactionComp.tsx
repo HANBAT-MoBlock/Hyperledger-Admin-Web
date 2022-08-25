@@ -4,7 +4,7 @@ import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   authAtom,
   modalState,
@@ -19,11 +19,7 @@ import { fetchTransaction } from "../../../api";
 import { IconButton, Modal } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import {
-  ITransactionList,
-  ITransactionResponse,
-  UserRole,
-} from "../../../interfaces";
+import { ITransactionList, ITransactionResponse } from "../../../interfaces";
 import Grid from "@mui/material/Grid";
 import TransactionCompSender from "./modalComp/TransactionCompSender";
 import TransactionCompReceiver from "./modalComp/TransactionCompReceiver";

@@ -1,13 +1,13 @@
 import * as React from "react";
+import { useState } from "react";
 import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authAtom, modalState } from "../../../atoms";
-import { useQuery, useMutation } from "react-query";
-import { SetStateAction, useEffect, useState } from "react";
-import { fetchAllCoins, fetchAllUser } from "../../../api";
+import { useQuery } from "react-query";
+import { fetchAllCoins } from "../../../api";
 import { IconButton, Modal } from "@mui/material";
 import CoinCompNew from "./modalComp/CoinCompNew";
 import DeleteCoin from "./modalComp/CoinCompDel";

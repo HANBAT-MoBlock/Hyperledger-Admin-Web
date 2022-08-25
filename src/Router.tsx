@@ -1,4 +1,4 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SignIn from "./routes/layout/login/SignIn";
 import Dashboard from "./routes/layout/Dashboard";
 
@@ -18,4 +18,5 @@ function Router({}: IRouterProps) {
     </BrowserRouter>
   );
 }
+
 export default Router;

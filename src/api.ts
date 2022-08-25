@@ -1,13 +1,6 @@
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 
-import {
-  ICoinDetail,
-  ICreateStoreRequest,
-  IUserDetail,
-  IUserJoinRequest,
-  IUserModifyReq,
-  UserRole,
-} from "./interfaces";
+import { IUserJoinRequest, IUserModifyReq, UserRole } from "./interfaces";
 import axios from "axios";
 
 const BASE_URL = "http://119.203.225.3:8081";

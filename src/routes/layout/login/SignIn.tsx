@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,7 +15,6 @@ import StickyFooter from "../../../component/StickyFooter";
 import StickyHeader from "../../../component/StickyHeader";
 import { useRecoilState } from "recoil";
 import { authAtom } from "../../../atoms";
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const theme = createTheme();

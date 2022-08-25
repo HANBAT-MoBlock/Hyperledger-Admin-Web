@@ -1,24 +1,14 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import {
-  DataGrid,
-  GridCellParams,
-  GridColDef,
-  GridSelectionModel,
-} from "@mui/x-data-grid";
+import { useState } from "react";
+import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authAtom, modalState } from "../../../atoms";
 import { useQuery } from "react-query";
-import { fetchAllStore, fetchAllUser } from "../../../api";
-import {
-  IPageDetail,
-  IShopDetail,
-  IUserDetail,
-  UserRole,
-} from "../../../interfaces";
+import { fetchAllStore } from "../../../api";
+import { IShopDetail } from "../../../interfaces";
 import { IconButton, Modal } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";

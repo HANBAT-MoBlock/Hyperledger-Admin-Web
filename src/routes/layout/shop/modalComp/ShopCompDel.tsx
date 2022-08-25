@@ -1,12 +1,11 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import Button from "@mui/material/Button";
+import { useState } from "react";
 import { fetchDeleteStore } from "../../../../api";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useState } from "react";
 
 const style = {
   position: "absolute" as "absolute",

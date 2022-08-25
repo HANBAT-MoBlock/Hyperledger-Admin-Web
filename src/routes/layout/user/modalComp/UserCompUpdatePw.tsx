@@ -1,13 +1,12 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { IUserDetail, IUserModifyReq, UserRole } from "../../../../interfaces";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
-import { useEffect, useState } from "react";
 import { InputLabel } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import { fetchUpdateUser } from "../../../../api";
 import LoadingButton from "@mui/lab/LoadingButton";
 

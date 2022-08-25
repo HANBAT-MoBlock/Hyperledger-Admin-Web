@@ -1,11 +1,6 @@
 import * as React from "react";
-import { SetStateAction, useEffect, useState } from "react";
-import {
-  DataGrid,
-  GridCellParams,
-  GridColDef,
-  GridSelectionModel,
-} from "@mui/x-data-grid";
+import { SetStateAction, useState } from "react";
+import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";

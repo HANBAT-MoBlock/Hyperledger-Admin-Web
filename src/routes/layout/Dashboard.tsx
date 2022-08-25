@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,7 +13,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import HomeComp from "./dashboard/HomeComp";
-import { useState } from "react";
 import UserComp from "./user/UserComp";
 import TransactionComp from "./transaction/TransactionComp";
 import CoinComp from "./coin/CoinComp";

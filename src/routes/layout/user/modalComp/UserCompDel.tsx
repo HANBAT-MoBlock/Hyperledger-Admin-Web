@@ -1,13 +1,12 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import * as React from "react";
+import { useState } from "react";
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
-import Button from "@mui/material/Button";
-import { fetchDeleteCoin, fetchDeleteUser } from "../../../../api";
+import { fetchDeleteUser } from "../../../../api";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { useState } from "react";
 
 const style = {
   position: "absolute" as "absolute",

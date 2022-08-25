@@ -6,9 +6,7 @@ import { IUserDetail, IUserModifyReq, UserRole } from "../../../../interfaces";
 import TextField from "@mui/material/TextField";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
-import Button from "@mui/material/Button";
-import { fetchDeleteUser, fetchUpdateUser } from "../../../../api";
-import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
+import { fetchUpdateUser } from "../../../../api";
 import { InputLabel } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -99,4 +97,5 @@ function UserCompUpdateId({ userDto }: props) {
     </Box>
   );
 }
+
 export default UserCompUpdateId;

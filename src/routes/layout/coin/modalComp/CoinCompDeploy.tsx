@@ -5,7 +5,6 @@ import { InputLabel, NativeSelect } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import * as React from "react";
 import { useState } from "react";
-import Button from "@mui/material/Button";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
 import { ICoinDtoList, UserRole } from "../../../../interfaces";
@@ -115,4 +114,5 @@ function CoinCompDeploy({ coinList }: props) {
     </Box>
   );
 }
+
 export default CoinCompDeploy;

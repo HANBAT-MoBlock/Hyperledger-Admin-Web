@@ -1,5 +1,5 @@
 import ApexChart from "react-apexcharts";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { authAtom } from "../../../atoms";
 import { useQuery } from "react-query";
 import { fetchCoinUsage } from "../../../api";
