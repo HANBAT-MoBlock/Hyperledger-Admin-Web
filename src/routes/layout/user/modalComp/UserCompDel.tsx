@@ -46,15 +46,16 @@ function UserCompDel({ userList }: props) {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchDeleteUser(jwt.accessToken, userList).then((response) => {
-              setLoading((prevState) => !prevState);
-              setModalState((prevState) => !prevState);
-              if (!response.ok) {
-                response.json().then((data) => alert(data.message));
-              } else {
+            fetchDeleteUser(jwt.accessToken, userList)
+              .then((response) => {
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 alert("삭제 성공");
-              }
-            });
+              })
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           제거

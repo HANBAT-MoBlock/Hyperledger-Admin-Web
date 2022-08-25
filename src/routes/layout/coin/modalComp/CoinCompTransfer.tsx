@@ -100,13 +100,12 @@ function CoinCompTransfer({ coinList }: props) {
               .then((response) => {
                 setLoading((prevState) => !prevState);
                 setModalState((prevState) => !prevState);
-                if (!response.ok) {
-                  response.json().then((data) => alert(data.message));
-                } else {
-                  alert("전송 송공");
-                }
+                alert("전송 송공");
               })
-              .catch((reason) => alert(reason.json()));
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           전송

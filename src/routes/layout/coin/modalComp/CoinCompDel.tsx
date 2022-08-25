@@ -48,15 +48,16 @@ function DeleteCoin({ coinNames }: props) {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchDeleteCoin(jwt.accessToken, coinNames).then((response) => {
-              setLoading((prevState) => !prevState);
-              setModalState((prevState) => !prevState);
-              if (!response.ok) {
-                response.json().then((data) => alert(data.message));
-              } else {
+            fetchDeleteCoin(jwt.accessToken, coinNames)
+              .then((response) => {
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 alert("삭제 성공");
-              }
-            });
+              })
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           제거

@@ -47,17 +47,16 @@ function ShopCompDel({ name, phoneNumber }: props) {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchDeleteStore(jwt.accessToken, name, phoneNumber).then(
-              (response) => {
+            fetchDeleteStore(jwt.accessToken, name, phoneNumber)
+              .then((response) => {
                 setLoading((prevState) => !prevState);
                 setModalState((prevState) => !prevState);
-                if (!response.ok) {
-                  response.json().then((data) => alert(data.message));
-                } else {
-                  alert("삭제 성공");
-                }
-              }
-            );
+                alert("삭제 성공");
+              })
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           삭제하기

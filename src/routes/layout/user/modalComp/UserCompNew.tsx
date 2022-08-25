@@ -112,23 +112,21 @@ function UserCompNew() {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchCreateUser(
-              jwt.accessToken,
-              userName,
-              userId,
-              userPassword,
-              userRole
-            )
+            fetchCreateUser(jwt.accessToken, {
+              name: userName,
+              userRole: userRole,
+              identifier: userId,
+              password: userPassword,
+            })
               .then((response) => {
                 setLoading((prevState) => !prevState);
                 setModalState((prevState) => !prevState);
-                if (!response.ok) {
-                  response.json().then((data) => alert(data.message));
-                } else {
-                  alert("생성 성공");
-                }
+                alert("생성 성공");
               })
-              .catch((reason) => alert(reason.json()));
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           유저 생성

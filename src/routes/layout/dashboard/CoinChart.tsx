@@ -16,10 +16,10 @@ function CoinChart() {
     async () =>
       await fetchCoinUsage(
         jwt.accessToken,
-        "test",
+        "test16",
         "2020-07-01T00:00:00",
         "2023-08-01T00:00:00"
-      )
+      ).then((response) => response.data)
   );
 
   return isLoading ? (

@@ -1,5 +1,4 @@
 import { atom } from "recoil";
-import { UserRole } from "./interfaces";
 
 export const authAtom = atom({
   key: "auth",

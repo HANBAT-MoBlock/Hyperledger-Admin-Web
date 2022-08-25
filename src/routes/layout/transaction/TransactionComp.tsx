@@ -39,8 +39,6 @@ function TransactionComp() {
   const minutes = ("0" + date.getMinutes()).slice(-2);
   const seconds = ("0" + date.getSeconds()).slice(-2);
 
-  // const currentTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-
   const jwt = useRecoilValue(authAtom);
   const [modState, setModState] = useRecoilState(modalState);
   const [sender, setSender] = useRecoilState(transactionSender);
@@ -99,13 +97,15 @@ function TransactionComp() {
         page,
         senderRole,
         receiverRole
-      )
+      ).then((response) => response.data)
   );
 
   const columns: GridColDef[] = [
     { field: "senderIdentifier", headerName: "Sender", width: 200 },
     { field: "receiverIdentifier", headerName: "Receiver", width: 200 },
-    { field: "dateCreated", headerName: "Date", width: 300 },
+    { field: "dateCreated", headerName: "Date", width: 200 },
+    { field: "coinName", headerName: "Coin", width: 100 },
+    { field: "amount", headerName: "Amount", width: 100 },
   ];
 
   return isLoading ? (

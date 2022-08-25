@@ -97,20 +97,16 @@ function CoinCompDeploy({ coinList }: props) {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchTransferCoinAll(
-              jwt.accessToken,
-              coinName,
-              coinValue,
-              userRole
-            ).then((response) => {
-              setLoading((prevState) => !prevState);
-              setModalState((prevState) => !prevState);
-              if (!response.ok) {
-                response.json().then((data) => alert(data.message));
-              } else {
+            fetchTransferCoinAll(jwt.accessToken, coinName, coinValue, userRole)
+              .then((response) => {
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 alert("전송 송공");
-              }
-            });
+              })
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           배포

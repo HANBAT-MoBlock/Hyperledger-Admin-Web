@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom, modalState } from "../../../../atoms";
 import Button from "@mui/material/Button";
-import { fetchDeleteUser, fetchUpdateUserId } from "../../../../api";
+import { fetchDeleteUser, fetchUpdateUser } from "../../../../api";
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 import { InputLabel } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -81,15 +81,16 @@ function UserCompUpdateId({ userDto }: props) {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchUpdateUserId(jwt.accessToken, reqDto).then((response) => {
-              setLoading((prevState) => !prevState);
-              setModalState((prevState) => !prevState);
-              if (!response.ok) {
-                response.json().then((data) => alert(data.message));
-              } else {
+            fetchUpdateUser(jwt.accessToken, reqDto)
+              .then((response) => {
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 alert("변경 성공");
-              }
-            });
+              })
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           ID 변경

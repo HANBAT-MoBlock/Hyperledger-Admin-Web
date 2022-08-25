@@ -71,3 +71,10 @@ export interface ITransactionResponse {
   totalPage: number;
   transferResponseList: ITransactionList[];
 }
+
+export interface IUserJoinRequest {
+  identifier: string;
+  name: string;
+  password: string;
+  userRole: UserRole;
+}

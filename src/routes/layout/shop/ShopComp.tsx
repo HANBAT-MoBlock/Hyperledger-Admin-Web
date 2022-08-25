@@ -40,7 +40,10 @@ function ShopComp() {
   const handleClose = () => setModState(false);
   const { isLoading, data } = useQuery<IShopDetail>(
     ["allShop", page],
-    async () => await fetchAllStore(jwt.accessToken, page)
+    async () =>
+      await fetchAllStore(jwt.accessToken, page).then(
+        (response) => response.data
+      )
   );
 
   const columns: GridColDef[] = [

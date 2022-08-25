@@ -48,15 +48,16 @@ function CoinCompNew() {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchCreateCoin(jwt.accessToken, coinName).then((response) => {
-              setLoading((prevState) => !prevState);
-              setModalState((prevState) => !prevState);
-              if (!response.ok) {
-                response.json().then((data) => alert(data.message));
-              } else {
+            fetchCreateCoin(jwt.accessToken, coinName)
+              .then((response) => {
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 alert("발행 성공");
-              }
-            });
+              })
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           발행

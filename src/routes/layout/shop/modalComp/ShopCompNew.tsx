@@ -129,16 +129,16 @@ function ShopCompNew() {
                 },
                 imageFile
               )
-            ).then((response) => {
-              setLoading((prevState) => !prevState);
-              setModalState((prevState) => !prevState);
-
-              if (!response.ok) {
-                response.json().then((data) => alert(data.message));
-              } else {
+            )
+              .then((response) => {
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 alert("생성 성공");
-              }
-            });
+              })
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           가맹점 추가

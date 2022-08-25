@@ -1,14 +1,28 @@
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
+
 import {
   ICoinDetail,
   ICreateStoreRequest,
   IUserDetail,
+  IUserJoinRequest,
   IUserModifyReq,
   UserRole,
 } from "./interfaces";
-import { throws } from "assert";
+import axios from "axios";
 
 const BASE_URL = "http://119.203.225.3:8081";
+
+axios.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    // localStorage.clear();
+    // window.location.href = "/login";
+
+    return Promise.reject(error);
+  }
+);
 
 export const fetchAllUser = (jwt: string, page: number) => {
   return fetch(`${BASE_URL}/admin/users?page=${page}`, {
@@ -17,7 +31,7 @@ export const fetchAllUser = (jwt: string, page: number) => {
       "Content-Type": "application/json",
       jwt,
     },
-  }).then((response) => response.json());
+  });
 };
 
 export const fetchCoinUsage = (
@@ -26,51 +40,42 @@ export const fetchCoinUsage = (
   fromLocalDateTime: string,
   toLocalDateTime: string
 ) => {
-  return fetch(
-    `${BASE_URL}/admin/trades/coin?coinName=${coinName}&fromLocalDateTime=${fromLocalDateTime}&toLocalDateTime=${toLocalDateTime}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        jwt,
-      },
-    }
-  ).then((response) => response.json());
+  return axios({
+    method: "GET",
+    url: `${BASE_URL}/admin/trades/coin`,
+    params: {
+      coinName: coinName,
+      fromLocalDateTime: fromLocalDateTime,
+      toLocalDateTime: toLocalDateTime,
+    },
+    headers: { "Content-Type": "application/json", jwt },
+  });
 };
 
 export const fetchAllCoins = (jwt: string, page: number) => {
-  return fetch(`${BASE_URL}/admin/coins?page=${page}`, {
+  return axios({
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-  }).then((response) => response.json());
+    url: `${BASE_URL}/admin/coins`,
+    params: { page: page },
+    headers: { "Content-Type": "application/json", jwt },
+  });
 };
 
 export const fetchCreateCoin = (jwt: string, coinName: string) => {
-  return fetch(`${BASE_URL}/admin/coin`, {
+  return axios({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-    body: JSON.stringify({
-      coinName: coinName,
-    }),
+    url: `${BASE_URL}/admin/coin`,
+    headers: { "Content-Type": "application/json", jwt },
+    data: { coinName: coinName },
   });
 };
 
 export const fetchDeleteCoin = (jwt: string, coinNames: GridSelectionModel) => {
-  return fetch(`${BASE_URL}/admin/coin`, {
+  return axios({
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-    body: JSON.stringify({
-      coinNameList: coinNames,
-    }),
+    url: `${BASE_URL}/admin/coin`,
+    headers: { "Content-Type": "application/json", jwt },
+    data: { coinNameList: coinNames },
   });
 };
 
@@ -80,17 +85,15 @@ export const fetchTransferCoinAll = (
   coinValue: string,
   userRole: UserRole
 ) => {
-  return fetch(`${BASE_URL}/admin/coin/update/assets`, {
+  return axios({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-    body: JSON.stringify({
+    url: `${BASE_URL}/admin/coin/update/assets`,
+    headers: { "Content-Type": "application/json", jwt },
+    data: {
       coinName: coinName,
       coinValue: coinValue,
       userRole: userRole,
-    }),
+    },
   });
 };
 
@@ -100,17 +103,15 @@ export const fetchTransferCoin = (
   coinValue: string,
   userNameList: string[]
 ) => {
-  return fetch(`${BASE_URL}/admin/coin/update/asset`, {
+  return axios({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-    body: JSON.stringify({
+    url: `${BASE_URL}/admin/coin/update/asset`,
+    headers: { "Content-Type": "application/json", jwt },
+    data: {
       coinName: coinName,
       coinValue: coinValue,
       identifier: userNameList,
-    }),
+    },
   });
 };
 
@@ -118,53 +119,40 @@ export const fetchDeleteUser = (
   jwt: string,
   identifier: GridSelectionModel
 ) => {
-  return fetch(`${BASE_URL}/admin/user`, {
+  return axios({
     method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-    body: JSON.stringify({
+    url: `${BASE_URL}/admin/user`,
+    headers: { "Content-Type": "application/json", jwt },
+    data: {
       identifier: identifier,
-    }),
+    },
   });
 };
 
-export const fetchUpdateUserId = (jwt: string, userDto: IUserModifyReq) => {
-  return fetch(`${BASE_URL}/admin/user`, {
+export const fetchUpdateUser = (jwt: string, userDto: IUserModifyReq) => {
+  return axios({
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-    body: JSON.stringify({
-      requestedIdentifier: userDto.requestedIdentifier,
-      wantToChangeIdentifier: userDto.wantToChangeIdentifier,
-      wantToChangeName: userDto.wantToChangeName,
-      wantToChangePlainPassword: userDto.wantToChangePlainPassword,
-      wantToChangeUserRole: userDto.wantToChangeUserRole,
-    }),
+    url: `${BASE_URL}/admin/user`,
+    headers: { "Content-Type": "application/json", jwt },
+    data: userDto,
   });
 };
 
 export const fetchCreateStore = (jwt: string, formData: FormData) => {
-  return fetch(`${BASE_URL}/admin/store`, {
+  return axios({
     method: "POST",
-    headers: {
-      jwt,
-    },
-    body: formData,
+    url: `${BASE_URL}/admin/store`,
+    headers: { jwt },
+    data: formData,
   });
 };
 
 export const fetchAllStore = (jwt: string, page: number) => {
-  return fetch(`${BASE_URL}/user/stores?page=${page}`, {
+  return axios({
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-  }).then((response) => response.json());
+    url: `${BASE_URL}/user/stores?page=${page}`,
+    headers: { "Content-Type": "application/json", jwt },
+  });
 };
 
 export const fetchDeleteStore = (
@@ -172,16 +160,17 @@ export const fetchDeleteStore = (
   name: string,
   phoneNumber: string
 ) => {
-  return fetch(`${BASE_URL}/admin/store`, {
+  return axios({
     method: "DELETE",
+    url: `${BASE_URL}/admin/store`,
     headers: {
       "Content-Type": "application/json",
       jwt,
     },
-    body: JSON.stringify({
+    data: {
       name: name,
       phoneNumber: phoneNumber,
-    }),
+    },
   });
 };
 
@@ -196,36 +185,31 @@ export const fetchTransaction = (
   senderUserRole: string | UserRole,
   receiverUserRole: string | UserRole
 ) => {
-  return fetch(
-    `${BASE_URL}/admin/trade?dateTimeRange=${dateTimeRange}&fromLocalDateTime=${fromLocalDateTime}&untilLocalDateTime=${untilLocalDateTime}&page=${page}&receiverIdentifier=${receiverIdentifier}&senderIdentifier=${senderIdentifier}&receiverUserRole=${receiverUserRole}&senderUserRole=${senderUserRole}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        jwt,
-      },
-    }
-  ).then((response) => response.json());
+  return axios({
+    method: "GET",
+    url: `${BASE_URL}/admin/trade`,
+    params: {
+      dateTimeRange: dateTimeRange,
+      fromLocalDateTime: fromLocalDateTime,
+      untilLocalDateTime: untilLocalDateTime,
+      page: page,
+      receiverIdentifier: receiverIdentifier,
+      senderIdentifier: senderIdentifier,
+      receiverUserRole: receiverUserRole,
+      senderUserRole: senderUserRole,
+    },
+    headers: { "Content-Type": "application/json", jwt },
+  });
 };
 
 export const fetchCreateUser = (
   jwt: string,
-  identifier: string,
-  name: string,
-  password: string,
-  userRole: UserRole
+  UserJoinRequest: IUserJoinRequest
 ) => {
-  return fetch(`${BASE_URL}/user`, {
+  return axios({
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
-    body: JSON.stringify({
-      identifier: identifier,
-      name: name,
-      password: password,
-      userRole: userRole,
-    }),
+    url: `${BASE_URL}/user`,
+    headers: { "Content-Type": "application/json", jwt },
+    data: UserJoinRequest,
   });
 };

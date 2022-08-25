@@ -78,7 +78,10 @@ function UserComp() {
   const handleClose = () => setModState(false);
   const { isLoading, data } = useQuery<IPageDetail>(
     ["allUser", page],
-    async () => await fetchAllUser(jwt.accessToken, page)
+    async () =>
+      await fetchAllUser(jwt.accessToken, page).then((response) =>
+        response.json()
+      )
   );
 
   const columns: GridColDef[] = [

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { InputLabel } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { fetchUpdateUserId } from "../../../../api";
+import { fetchUpdateUser } from "../../../../api";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
@@ -78,15 +78,16 @@ function UserCompUpdatePw({ userDto }: props) {
           variant="contained"
           onClick={() => {
             setLoading((prevState) => !prevState);
-            fetchUpdateUserId(jwt.accessToken, reqDto).then((response) => {
-              setLoading((prevState) => !prevState);
-              setModalState((prevState) => !prevState);
-              if (!response.ok) {
-                response.json().then((data) => alert(data.message));
-              } else {
+            fetchUpdateUser(jwt.accessToken, reqDto)
+              .then((response) => {
+                setLoading((prevState) => !prevState);
+                setModalState((prevState) => !prevState);
                 alert("변경 성공");
-              }
-            });
+              })
+              .catch((e) => {
+                alert(e.response.data.message);
+                setModalState((prevState) => !prevState);
+              });
           }}
         >
           PW 변경

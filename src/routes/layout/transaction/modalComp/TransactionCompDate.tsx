@@ -49,16 +49,6 @@ function TransactionCompDate() {
     )}`;
   };
 
-  // useEffect(
-  //   () =>
-  //     setDateObject({
-  //       dateTimeRange: dateTimeRange[dateFlag],
-  //       fromLocalDateTime: fromDate,
-  //       untilLocalDateTime: untilDate,
-  //     }),
-  //   [dateFlag, fromDate, untilDate]
-  // );
-
   useEffect(() => console.log(dateObject), [dateObject]);
 
   return (

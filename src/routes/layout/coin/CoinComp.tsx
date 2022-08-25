@@ -27,9 +27,8 @@ function CoinComp() {
     setModState(true);
   };
   const handleClose = () => setModState(false);
-  const { isLoading, data } = useQuery<ICoinDetail>(
-    ["allCoins", page],
-    async () => await fetchAllCoins(jwt.accessToken, page)
+  const { isLoading, data } = useQuery<ICoinDetail>(["allCoins", page], () =>
+    fetchAllCoins(jwt.accessToken, page).then((response) => response.data)
   );
   const columns: GridColDef[] = [
     { field: "name", headerName: "CoinName", width: 130 },
