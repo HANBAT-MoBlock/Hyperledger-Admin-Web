@@ -9,7 +9,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import { fetchTransferCoin } from "../../../../api";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authAtom, modalState } from "../../../../atoms";
+import { authAtom, modalStateAtom } from "../../../../atoms";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
@@ -35,7 +35,7 @@ function CoinCompTransfer({ coinList }: props) {
   const [coinValue, setCoinValue] = useState("");
   const [userList, setUserList] = useState<string[]>([]);
   const jwt = useRecoilValue(authAtom);
-  const setModalState = useSetRecoilState(modalState);
+  const setModalState = useSetRecoilState(modalStateAtom);
 
   const coinOptions = coinList.map((value) => <option>{value.name}</option>);
 

@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authAtom, modalState } from "../../../../atoms";
+import { authAtom, modalStateAtom } from "../../../../atoms";
 import * as React from "react";
 import { ChangeEvent, useRef, useState } from "react";
 import { ICreateStoreRequest } from "../../../../interfaces";
@@ -41,7 +41,7 @@ function createForm(
 
 function ShopCompNew() {
   const jwt = useRecoilValue(authAtom);
-  const setModalState = useSetRecoilState(modalState);
+  const setModalState = useSetRecoilState(modalStateAtom);
 
   const [loading, setLoading] = useState(false);
   const inputFile = useRef<HTMLInputElement | null>(null);

@@ -8,7 +8,7 @@ import * as React from "react";
 import { useState } from "react";
 import { fetchCreateUser } from "../../../../api";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authAtom, modalState } from "../../../../atoms";
+import { authAtom, modalStateAtom } from "../../../../atoms";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const style = {
@@ -30,7 +30,7 @@ function UserCompNew() {
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState(UserRole.ROLE_STUDENT);
   const jwt = useRecoilValue(authAtom);
-  const setModalState = useSetRecoilState(modalState);
+  const setModalState = useSetRecoilState(modalStateAtom);
 
   return (
     <Box sx={style}>

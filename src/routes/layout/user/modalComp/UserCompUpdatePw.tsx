@@ -4,7 +4,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import { IUserDetail, IUserModifyReq, UserRole } from "../../../../interfaces";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authAtom, modalState } from "../../../../atoms";
+import { authAtom, modalStateAtom } from "../../../../atoms";
 import { InputLabel } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { fetchUpdateUser } from "../../../../api";
@@ -29,7 +29,7 @@ type props = {
 function UserCompUpdatePw({ userDto }: props) {
   const [loading, setLoading] = useState(false);
   const jwt = useRecoilValue(authAtom);
-  const setModalState = useSetRecoilState(modalState);
+  const setModalState = useSetRecoilState(modalStateAtom);
   const [userPW, setUserPW] = useState("");
   const [reqDto, setReqDto] = useState<IUserModifyReq>({
     wantToChangeUserRole: UserRole.ROLE_STUDENT,

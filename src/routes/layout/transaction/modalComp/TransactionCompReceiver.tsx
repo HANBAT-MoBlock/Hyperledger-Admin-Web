@@ -5,11 +5,7 @@ import * as React from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useSetRecoilState } from "recoil";
-import {
-  modalState,
-  transactionReceiver,
-  transactionReceiverRole,
-} from "../../../../atoms";
+import { modalStateAtom, transactionAtom } from "../../../../atoms";
 import {
   FormControl,
   FormLabel,
@@ -34,11 +30,12 @@ const style = {
 };
 
 function TransactionCompReceiver() {
-  const [sender, setSender] = useState("");
-  const [senderRole, setSenderRole] = useState<UserRole>(UserRole.ROLE_STUDENT);
-  const setReceiverState = useSetRecoilState(transactionReceiver);
-  const setReceiverRoleState = useSetRecoilState(transactionReceiverRole);
-  const setModalState = useSetRecoilState(modalState);
+  const [receiver, setReceiver] = useState("");
+  const [receiverRole, setReceiverRole] = useState<UserRole>(
+    UserRole.ROLE_STUDENT
+  );
+  const setTransactionRequest = useSetRecoilState(transactionAtom);
+  const setModalState = useSetRecoilState(modalStateAtom);
   const [checked, setChecked] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +68,7 @@ function TransactionCompReceiver() {
             label="수신자"
             variant="outlined"
             disabled={checked}
-            onChange={(event) => setSender(event.target.value)}
+            onChange={(event) => setReceiver(event.target.value)}
           />
         </Grid>
         <Grid xs={12}>
@@ -82,7 +79,7 @@ function TransactionCompReceiver() {
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="row-radio-buttons-group"
               onChange={(event) =>
-                setSenderRole(
+                setReceiverRole(
                   (event.target as HTMLInputElement).value === "학생"
                     ? UserRole.ROLE_STUDENT
                     : UserRole.ROLE_STOREMANAGER
@@ -111,8 +108,14 @@ function TransactionCompReceiver() {
           variant="contained"
           onClick={() => {
             checked
-              ? setReceiverRoleState(senderRole)
-              : setReceiverState(sender);
+              ? setTransactionRequest((currVal) => {
+                  const receiverUserRole = receiverRole;
+                  return { ...currVal, receiverUserRole };
+                })
+              : setTransactionRequest((currVal) => {
+                  const receiverIdentifier = receiver;
+                  return { ...currVal, receiverIdentifier };
+                });
             setModalState((prevState) => !prevState);
           }}
         >

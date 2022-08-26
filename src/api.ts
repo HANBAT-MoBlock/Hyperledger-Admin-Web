@@ -1,6 +1,11 @@
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 
-import { IUserJoinRequest, IUserModifyReq, UserRole } from "./interfaces";
+import {
+  ITransactionRequest,
+  IUserJoinRequest,
+  IUserModifyReq,
+  UserRole,
+} from "./interfaces";
 import axios, { AxiosError } from "axios";
 
 const BASE_URL = "http://119.203.225.3:8081";
@@ -170,28 +175,20 @@ export const fetchDeleteStore = (
 
 export const fetchTransaction = (
   jwt: string,
-  fromLocalDateTime: string,
-  untilLocalDateTime: string,
-  senderIdentifier: string,
-  receiverIdentifier: string,
-  dateTimeRange: string,
-  page: number,
-  senderUserRole: string | UserRole,
-  receiverUserRole: string | UserRole
+  // fromLocalDateTime: string,
+  // untilLocalDateTime: string,
+  // senderIdentifier: string,
+  // receiverIdentifier: string,
+  // dateTimeRange: string,
+  // page: number,
+  // senderUserRole: string | UserRole,
+  // receiverUserRole: string | UserRole
+  transactionRequest: ITransactionRequest
 ) => {
   return axios({
     method: "GET",
     url: `${BASE_URL}/admin/trade`,
-    params: {
-      dateTimeRange: dateTimeRange,
-      fromLocalDateTime: fromLocalDateTime,
-      untilLocalDateTime: untilLocalDateTime,
-      page: page,
-      receiverIdentifier: receiverIdentifier,
-      senderIdentifier: senderIdentifier,
-      receiverUserRole: receiverUserRole,
-      senderUserRole: senderUserRole,
-    },
+    params: transactionRequest,
     headers: { "Content-Type": "application/json", jwt },
   });
 };

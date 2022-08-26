@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState } from "react";
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authAtom, modalState } from "../../../../atoms";
+import { authAtom, modalStateAtom } from "../../../../atoms";
 import { fetchDeleteCoin } from "../../../../api";
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -28,7 +28,7 @@ function DeleteCoin({ coinNames }: props) {
   const [loading, setLoading] = useState(false);
 
   const jwt = useRecoilValue(authAtom);
-  const setModalState = useSetRecoilState(modalState);
+  const setModalState = useSetRecoilState(modalStateAtom);
 
   return (
     <Box sx={style}>

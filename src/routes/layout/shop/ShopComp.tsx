@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { authAtom, modalState } from "../../../atoms";
+import { authAtom, modalStateAtom } from "../../../atoms";
 import { useQuery } from "react-query";
 import { fetchAllStore } from "../../../api";
 import { IShopDetail } from "../../../interfaces";
@@ -17,7 +17,7 @@ import ShopCompDel from "./modalComp/ShopCompDel";
 
 function ShopComp() {
   const jwt = useRecoilValue(authAtom);
-  const [modState, setModState] = useRecoilState(modalState);
+  const [modState, setModState] = useRecoilState(modalStateAtom);
   const [page, setPage] = useState(1);
   const [modalComp, setModalComp] = useState(<Box />);
   const [selectedName, setSelectedName] = useState("");

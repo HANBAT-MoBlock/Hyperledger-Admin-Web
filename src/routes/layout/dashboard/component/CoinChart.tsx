@@ -1,8 +1,8 @@
 import ApexChart from "react-apexcharts";
 import { useRecoilValue } from "recoil";
-import { authAtom } from "../../../atoms";
+import { authAtom } from "../../../../atoms";
 import { useQuery } from "react-query";
-import { fetchCoinUsage } from "../../../api";
+import { fetchCoinUsage } from "../../../../api";
 
 interface ICoinUsage {
   tradingDate: string;
@@ -16,14 +16,14 @@ function CoinChart() {
     async () =>
       await fetchCoinUsage(
         jwt.accessToken,
-        "test16",
+        "test",
         "2020-07-01T00:00:00",
         "2023-08-01T00:00:00"
       ).then((response) => response.data)
   );
 
   return isLoading ? (
-    <span>lading...</span>
+    <span>loading...</span>
   ) : (
     <ApexChart
       type="area"

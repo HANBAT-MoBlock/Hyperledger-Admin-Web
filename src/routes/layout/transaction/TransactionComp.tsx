@@ -4,16 +4,8 @@ import { DataGrid, GridCellParams, GridColDef } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useRecoilState, useRecoilValue } from "recoil";
-import {
-  authAtom,
-  modalState,
-  transactionDate,
-  transactionReceiver,
-  transactionReceiverRole,
-  transactionSender,
-  transactionSenderRole,
-} from "../../../atoms";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { authAtom, modalStateAtom, transactionAtom } from "../../../atoms";
 import { useQuery } from "react-query";
 import { fetchTransaction } from "../../../api";
 import { IconButton, Modal } from "@mui/material";
@@ -26,26 +18,11 @@ import TransactionCompReceiver from "./modalComp/TransactionCompReceiver";
 import TransactionCompDate from "./modalComp/TransactionCompDate";
 
 function TransactionComp() {
-  const date = new Date();
-
-  const year = date.getFullYear();
-  const month = ("0" + (date.getMonth() + 1)).slice(-2);
-  const day = ("0" + date.getDate()).slice(-2);
-  const hours = ("0" + date.getHours()).slice(-2);
-  const minutes = ("0" + date.getMinutes()).slice(-2);
-  const seconds = ("0" + date.getSeconds()).slice(-2);
-
   const jwt = useRecoilValue(authAtom);
-  const [modState, setModState] = useRecoilState(modalState);
-  const [sender, setSender] = useRecoilState(transactionSender);
-  const [receiver, setReceiver] = useRecoilState(transactionReceiver);
-  const [senderRole, setSenderRole] = useRecoilState(transactionSenderRole);
-  const [receiverRole, setReceiverRole] = useRecoilState(
-    transactionReceiverRole
-  );
-  const [dateObject, setDateObject] = useRecoilState(transactionDate);
-
-  const [page, setPage] = useState(1);
+  const [modState, setModState] = useRecoilState(modalStateAtom);
+  const [transactionRequest, setTransactionRequest] =
+    useRecoilState(transactionAtom);
+  const transactionRequestReset = useResetRecoilState(transactionAtom);
   const [transactionDetail, setTransactionDetail] =
     useState<ITransactionList>();
   const [modalComp, setModalComp] = useState(<Box />);
@@ -56,44 +33,14 @@ function TransactionComp() {
   };
   const handleClose = () => setModState(false);
 
-  useEffect(() => {
-    setSender("");
-    setReceiver("");
-    setSenderRole("");
-    setReceiverRole("");
-    setDateObject({
-      dateTimeRange: "YEAR",
-      fromLocalDateTime: `${
-        +year - 1
-      }-${month}-${day}T${hours}:${minutes}:${seconds}`,
-      untilLocalDateTime: `${
-        +year + 2
-      }-${month}-${day}T${hours}:${minutes}:${seconds}`,
-    });
-  }, []);
+  useEffect(() => transactionRequestReset, []);
 
   const { isLoading, data } = useQuery<ITransactionResponse>(
-    [
-      "allTransaction",
-      page,
-      sender,
-      receiver,
-      senderRole,
-      receiverRole,
-      dateObject,
-    ],
+    ["allTransaction", transactionRequest],
     async () =>
-      await fetchTransaction(
-        jwt.accessToken,
-        dateObject.fromLocalDateTime,
-        dateObject.untilLocalDateTime,
-        sender,
-        receiver,
-        dateObject.dateTimeRange,
-        page,
-        senderRole,
-        receiverRole
-      ).then((response) => response.data)
+      await fetchTransaction(jwt.accessToken, transactionRequest).then(
+        (response) => response.data
+      )
   );
 
   const columns: GridColDef[] = [
@@ -145,17 +92,27 @@ function TransactionComp() {
         </Button>
         <IconButton
           aria-label="backward"
-          disabled={page < 2}
+          disabled={transactionRequest.page < 2}
           sx={{ ml: "auto" }}
-          onClick={() => setPage(page - 1)}
+          onClick={() =>
+            setTransactionRequest((currVal) => {
+              const page = transactionRequest.page + 1;
+              return { ...currVal, page };
+            })
+          }
         >
           <ArrowBackIosNewIcon />
         </IconButton>
         <IconButton
           aria-label="forward"
-          disabled={page == data!.totalPage || data!.totalPage == 0}
+          disabled={
+            transactionRequest.page == data!.totalPage || data!.totalPage == 0
+          }
           onClick={() => {
-            setPage(page + 1);
+            setTransactionRequest((currVal) => {
+              const page = transactionRequest.page - 1;
+              return { ...currVal, page };
+            });
           }}
         >
           <ArrowForwardIosIcon />

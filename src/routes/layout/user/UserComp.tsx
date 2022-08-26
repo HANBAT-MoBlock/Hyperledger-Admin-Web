@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { authAtom, modalState } from "../../../atoms";
+import { authAtom, modalStateAtom } from "../../../atoms";
 import { useQuery } from "react-query";
 import { fetchAllUser, fetchUserCoins } from "../../../api";
 import {
@@ -31,7 +31,7 @@ import { Skeleton } from "@mui/lab";
 
 function UserComp() {
   const jwt = useRecoilValue(authAtom);
-  const [modState, setModState] = useRecoilState(modalState);
+  const [modState, setModState] = useRecoilState(modalStateAtom);
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const [page, setPage] = useState(1);
   const [modalComp, setModalComp] = useState(<UserCompNew />);

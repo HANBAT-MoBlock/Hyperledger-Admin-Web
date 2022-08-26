@@ -5,11 +5,7 @@ import * as React from "react";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useSetRecoilState } from "recoil";
-import {
-  modalState,
-  transactionSender,
-  transactionSenderRole,
-} from "../../../../atoms";
+import { modalStateAtom, transactionAtom } from "../../../../atoms";
 import {
   FormControl,
   FormLabel,
@@ -36,9 +32,8 @@ const style = {
 function TransactionCompSender() {
   const [sender, setSender] = useState("");
   const [senderRole, setSenderRole] = useState<UserRole>(UserRole.ROLE_STUDENT);
-  const setSenderState = useSetRecoilState(transactionSender);
-  const setSenderRoleState = useSetRecoilState(transactionSenderRole);
-  const setModalState = useSetRecoilState(modalState);
+  const setTransactionRequest = useSetRecoilState(transactionAtom);
+  const setModalState = useSetRecoilState(modalStateAtom);
   const [checked, setChecked] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,7 +105,15 @@ function TransactionCompSender() {
           sx={{ mt: 1, ml: "auto" }}
           variant="contained"
           onClick={() => {
-            checked ? setSenderRoleState(senderRole) : setSenderState(sender);
+            checked
+              ? setTransactionRequest((currVal) => {
+                  const senderUserRole = senderRole;
+                  return { ...currVal, senderUserRole };
+                })
+              : setTransactionRequest((currVal) => {
+                  const senderIdentifier = sender;
+                  return { ...currVal, senderIdentifier };
+                });
             setModalState((prevState) => !prevState);
           }}
         >

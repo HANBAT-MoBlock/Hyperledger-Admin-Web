@@ -84,3 +84,14 @@ export interface IUserCoins {
   owner: string;
   coin: {};
 }
+
+export interface ITransactionRequest {
+  page: number;
+  dateTimeRange: string;
+  fromLocalDateTime: string;
+  untilLocalDateTime: string;
+  receiverIdentifier: string;
+  receiverUserRole: string;
+  senderIdentifier: string;
+  senderUserRole: string;
+}

@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import * as React from "react";
 import { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authAtom, modalState } from "../../../../atoms";
+import { authAtom, modalStateAtom } from "../../../../atoms";
 import { ICoinDtoList, UserRole } from "../../../../interfaces";
 import { fetchTransferCoinAll } from "../../../../api";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -35,7 +35,7 @@ function CoinCompDeploy({ coinList }: props) {
   const [userRole, setUserRole] = useState(UserRole.ROLE_STUDENT);
 
   const jwt = useRecoilValue(authAtom);
-  const setModalState = useSetRecoilState(modalState);
+  const setModalState = useSetRecoilState(modalStateAtom);
 
   const coinOptions = coinList.map((value) => <option>{value.name}</option>);
 

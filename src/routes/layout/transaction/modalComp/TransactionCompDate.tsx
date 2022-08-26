@@ -5,7 +5,7 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { modalState, transactionDate } from "../../../../atoms";
+import { modalStateAtom, transactionAtom } from "../../../../atoms";
 import { NativeSelect } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
@@ -22,8 +22,8 @@ const style = {
 };
 
 function TransactionCompDate() {
-  const setModalState = useSetRecoilState(modalState);
-  const [dateObject, setDateObject] = useRecoilState(transactionDate);
+  const setModalState = useSetRecoilState(modalStateAtom);
+  const setTransactionRequest = useSetRecoilState(transactionAtom);
   const [dateFlag, setDateFlag] = useState(0);
   const [fromDate, setFromDate] = useState("");
   const [untilDate, setUntilDate] = useState("");
@@ -32,7 +32,14 @@ function TransactionCompDate() {
   const [fromDateClicked, setFromDateClicked] = useState(false);
   const [untilDateClicked, setUntilDateClicked] = useState(false);
 
-  const dateTimeRange = ["YEAR", "MONTH", "DAY", "HOUR", "MINUTE", "SECOND"];
+  const dateTimeRangeList = [
+    "YEAR",
+    "MONTH",
+    "DAY",
+    "HOUR",
+    "MINUTE",
+    "SECOND",
+  ];
   const dateTextHint = [
     "2022",
     "2022-01",
@@ -48,8 +55,6 @@ function TransactionCompDate() {
       defaultDate.length
     )}`;
   };
-
-  useEffect(() => console.log(dateObject), [dateObject]);
 
   return (
     <Box sx={style}>
@@ -121,10 +126,16 @@ function TransactionCompDate() {
             dateTextHint[dateFlag].length !== fromDate.length
           }
           onClick={() => {
-            setDateObject({
-              dateTimeRange: dateTimeRange[dateFlag],
-              fromLocalDateTime: makeTimeFormat(fromDate),
-              untilLocalDateTime: makeTimeFormat(untilDate),
+            setTransactionRequest((currVal) => {
+              const dateTimeRange = dateTimeRangeList[dateFlag];
+              const fromLocalDateTime = makeTimeFormat(fromDate);
+              const untilLocalDateTime = makeTimeFormat(untilDate);
+              return {
+                ...currVal,
+                dateTimeRange,
+                fromLocalDateTime,
+                untilLocalDateTime,
+              };
             });
             setModalState((prevState) => !prevState);
           }}

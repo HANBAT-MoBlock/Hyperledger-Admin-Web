@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { IUserDetail, IUserModifyReq, UserRole } from "../../../../interfaces";
 import TextField from "@mui/material/TextField";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authAtom, modalState } from "../../../../atoms";
+import { authAtom, modalStateAtom } from "../../../../atoms";
 import { fetchUpdateUser } from "../../../../api";
 import { InputLabel } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -30,7 +30,7 @@ function UserCompUpdateId({ userDto }: props) {
   const [loading, setLoading] = useState(false);
 
   const jwt = useRecoilValue(authAtom);
-  const setModalState = useSetRecoilState(modalState);
+  const setModalState = useSetRecoilState(modalStateAtom);
   const [userId, setUserID] = useState("");
   const [reqDto, setReqDto] = useState<IUserModifyReq>({
     wantToChangeUserRole: UserRole.ROLE_STUDENT,

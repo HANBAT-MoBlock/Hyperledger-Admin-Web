@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { authAtom, modalState } from "../../../atoms";
+import { authAtom, modalStateAtom } from "../../../atoms";
 import { useQuery } from "react-query";
 import { fetchAllCoins } from "../../../api";
 import { IconButton, Modal } from "@mui/material";
@@ -19,7 +19,7 @@ import { ICoinDetail } from "../../../interfaces";
 
 function CoinComp() {
   const jwt = useRecoilValue(authAtom);
-  const [modState, setModState] = useRecoilState(modalState);
+  const [modState, setModState] = useRecoilState(modalStateAtom);
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const [page, setPage] = useState(1);
   const [modalComp, setModalComp] = useState(<Box />);
