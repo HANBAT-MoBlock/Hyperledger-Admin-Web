@@ -2,6 +2,7 @@ import Grid from "@mui/material/Grid";
 import CoinChart from "./component/CoinChart";
 import * as React from "react";
 import Box from "@mui/material/Box";
+import TransactionTable from "./component/TransactionTable";
 
 function HomeComp() {
   return (
@@ -39,7 +40,8 @@ function HomeComp() {
         </Grid>
       </Grid>
       <Grid item xs={4}>
-        <span>Transaction Part</span>
+        <TransactionTable />
+        {/*<span>Transaction Part</span>*/}
       </Grid>
     </Grid>
   );

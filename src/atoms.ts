@@ -33,35 +33,3 @@ export const transactionAtom = atom({
     senderUserRole: "",
   },
 });
-//
-// export const transactionSenderAtom = atom({
-//   key: "transactionSender",
-//   default: "",
-// });
-//
-// export const transactionReceiverAtom = atom({
-//   key: "transactionReceiver",
-//   default: "",
-// });
-//
-// export const transactionSenderRoleAtom = atom({
-//   key: "transactionSenderRole",
-//   default: "",
-// });
-//
-// export const transactionReceiverRoleAtom = atom({
-//   key: "transactionReceiverRole",
-//   default: "",
-// });
-//
-// export const defaultTimeAtom = atom({
-//   key: "defaultTime",
-//   default: {
-//     fromLocalDateTime: `${
-//       +year - 1
-//     }-${month}-${day}T${hours}:${minutes}:${seconds}`,
-//     untilLocalDateTime: `${
-//       +year + 2
-//     }-${month}-${day}T${hours}:${minutes}:${seconds}`,
-//   },
-// });

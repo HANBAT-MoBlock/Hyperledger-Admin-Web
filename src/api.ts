@@ -175,14 +175,6 @@ export const fetchDeleteStore = (
 
 export const fetchTransaction = (
   jwt: string,
-  // fromLocalDateTime: string,
-  // untilLocalDateTime: string,
-  // senderIdentifier: string,
-  // receiverIdentifier: string,
-  // dateTimeRange: string,
-  // page: number,
-  // senderUserRole: string | UserRole,
-  // receiverUserRole: string | UserRole
   transactionRequest: ITransactionRequest
 ) => {
   return axios({
