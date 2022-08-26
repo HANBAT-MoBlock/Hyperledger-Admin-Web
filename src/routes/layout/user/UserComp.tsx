@@ -1,14 +1,24 @@
 import * as React from "react";
-import { SetStateAction, useState } from "react";
-import { DataGrid, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
+import { SetStateAction, useEffect, useState } from "react";
+import {
+  DataGrid,
+  GridCellParams,
+  GridColDef,
+  GridSelectionModel,
+} from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authAtom, modalState } from "../../../atoms";
 import { useQuery } from "react-query";
-import { fetchAllUser } from "../../../api";
-import { IPageDetail, IUserDetail, UserRole } from "../../../interfaces";
+import { fetchAllUser, fetchUserCoins } from "../../../api";
+import {
+  IPageDetail,
+  IUserCoins,
+  IUserDetail,
+  UserRole,
+} from "../../../interfaces";
 import { IconButton, Modal } from "@mui/material";
 import UserCompUpdatePw from "./modalComp/UserCompUpdatePw";
 import UserCompNew from "./modalComp/UserCompNew";
@@ -16,35 +26,8 @@ import UserCompDel from "./modalComp/UserCompDel";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import UserCompUpdateId from "./modalComp/UserCompUpdateId";
-
-function updateState(
-  data: IPageDetail | undefined,
-  selectionModel: GridSelectionModel,
-  selectionModelDto: IUserDetail,
-  setSelectionModelDto: SetStateAction<any>
-): Promise<IUserDetail> {
-  return new Promise((resolve, reject) => {
-    if (typeof data === undefined) {
-      reject(undefined);
-    }
-    console.log("1");
-    setSelectionModelDto(
-      data!.userDtoList.filter(
-        (value) => value.identifier === selectionModel[0]
-      )[0]
-    );
-    console.log("2");
-    if (selectionModel[0] == selectionModelDto.identifier) {
-      console.log("resolve");
-      console.log(selectionModelDto);
-      resolve(selectionModelDto);
-    } else {
-      console.log("reject");
-      console.log(selectionModelDto);
-      reject(selectionModelDto);
-    }
-  });
-}
+import Grid from "@mui/material/Grid";
+import { Skeleton } from "@mui/lab";
 
 function UserComp() {
   const jwt = useRecoilValue(authAtom);
@@ -52,13 +35,8 @@ function UserComp() {
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const [page, setPage] = useState(1);
   const [modalComp, setModalComp] = useState(<UserCompNew />);
-  const [selectionModelDto, setSelectionModelDto] = useState<IUserDetail>({
-    identifier: "",
-    userRole: UserRole.ROLE_STUDENT,
-    dateCreated: "",
-    lastUpdated: "",
-    name: "",
-  });
+  const [identifier, setIdentifier] = useState("test");
+  const [detailTable, setDetailTable] = useState(false);
 
   const handleOpen = (flag: number) => {
     switch (flag) {
@@ -71,13 +49,20 @@ function UserComp() {
     }
   };
   const handleClose = () => setModState(false);
-  const { isLoading, data } = useQuery<IPageDetail>(
-    ["allUser", page],
-    async () =>
-      await fetchAllUser(jwt.accessToken, page).then((response) =>
-        response.json()
+
+  const { isLoading: userDataIsLoading, data: userData } =
+    useQuery<IPageDetail>(["allUser", page], () =>
+      fetchAllUser(jwt.accessToken, page).then((response) => response.data)
+    );
+
+  const { isLoading: userCoinsIsLoading, data: userCoins } =
+    useQuery<IUserCoins>(["userCoins", identifier], () =>
+      fetchUserCoins(jwt.accessToken, identifier).then(
+        (response) => response.data
       )
-  );
+    );
+
+  useEffect(() => console.log(userCoins), [userCoins]);
 
   const columns: GridColDef[] = [
     { field: "identifier", headerName: "ID", width: 130 },
@@ -87,13 +72,13 @@ function UserComp() {
     { field: "userRole", headerName: "Role", width: 200 },
   ];
 
-  return isLoading ? (
+  return userDataIsLoading ? (
     <span>loading...</span>
   ) : (
-    <Box style={{ height: "100%", width: "100%", minHeight: "70vh" }}>
+    <Box style={{ height: "100%", width: "100%", minHeight: "50vh" }}>
       <DataGrid
         getRowId={(row) => row.identifier}
-        rows={data!.userDtoList}
+        rows={userData!.userDtoList}
         columns={columns}
         hideFooter={true}
         checkboxSelection
@@ -101,6 +86,10 @@ function UserComp() {
           setSelectionModel(newSelectionModel);
         }}
         selectionModel={selectionModel}
+        onCellClick={(params: GridCellParams) => {
+          setIdentifier(params.row.identifier);
+          setDetailTable(true);
+        }}
       />
 
       <Box display="flex">
@@ -125,7 +114,7 @@ function UserComp() {
             setModalComp(
               <UserCompUpdateId
                 userDto={
-                  data!.userDtoList.filter(
+                  userData!.userDtoList.filter(
                     (value) => value.identifier === selectionModel[0]
                   )[0]
                 }
@@ -141,7 +130,7 @@ function UserComp() {
             setModalComp(
               <UserCompUpdatePw
                 userDto={
-                  data!.userDtoList.filter(
+                  userData!.userDtoList.filter(
                     (value) => value.identifier === selectionModel[0]
                   )[0]
                 }
@@ -163,7 +152,7 @@ function UserComp() {
         </IconButton>
         <IconButton
           aria-label="forward"
-          disabled={page == data!.totalPage || data!.totalPage == 0}
+          disabled={page == userData!.totalPage || userData!.totalPage == 0}
           onClick={() => {
             setPage(page + 1);
           }}
@@ -179,6 +168,36 @@ function UserComp() {
           {modalComp}
         </Modal>
       </Box>
+      <br />
+      {detailTable ? (
+        userCoinsIsLoading ? (
+          <Skeleton animation="wave" variant="rounded" height="20vh" />
+        ) : (
+          <Grid
+            container
+            sx={{ border: "1px solid #E0E0E0", borderRadius: 1, mb: 4 }}
+          >
+            <Grid item xs={4}>
+              <Typography variant="h6" sx={{ ml: 2 }}>
+                {identifier}의 코인
+              </Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <Grid container>
+                {Object.entries(userCoins!.coin).map(([key, value]) => (
+                  <Grid item xs={3}>
+                    <Typography sx={{ ml: 2, mt: 1 }}>
+                      {key}: {value}
+                    </Typography>
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          </Grid>
+        )
+      ) : (
+        <Box />
+      )}
     </Box>
   );
 }

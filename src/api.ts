@@ -20,12 +20,11 @@ axios.interceptors.response.use(
 );
 
 export const fetchAllUser = (jwt: string, page: number) => {
-  return fetch(`${BASE_URL}/admin/users?page=${page}`, {
+  return axios({
     method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      jwt,
-    },
+    url: `${BASE_URL}/admin/users?`,
+    headers: { "Content-Type": "application/json", jwt },
+    params: { page: page },
   });
 };
 
@@ -206,5 +205,14 @@ export const fetchCreateUser = (
     url: `${BASE_URL}/user`,
     headers: { "Content-Type": "application/json", jwt },
     data: UserJoinRequest,
+  });
+};
+
+export const fetchUserCoins = (jwt: string, identifier: string) => {
+  return axios({
+    method: "GET",
+    url: `${BASE_URL}/admin/user`,
+    headers: { "Content-Type": "application/json", jwt },
+    params: { identifier: identifier },
   });
 };

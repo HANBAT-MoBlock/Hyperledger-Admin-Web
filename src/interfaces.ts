@@ -78,3 +78,9 @@ export interface IUserJoinRequest {
   password: string;
   userRole: UserRole;
 }
+
+export interface IUserCoins {
+  identifier: string;
+  owner: string;
+  coin: {};
+}
