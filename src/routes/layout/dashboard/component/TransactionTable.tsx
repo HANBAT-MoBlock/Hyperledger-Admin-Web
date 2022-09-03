@@ -28,7 +28,7 @@ function TransactionTable() {
     <span>loading...</span>
   ) : (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table" size="small">
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>시간</TableCell>

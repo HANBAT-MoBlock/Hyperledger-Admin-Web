@@ -1,21 +1,16 @@
 import { GridSelectionModel } from "@mui/x-data-grid/models/gridSelectionModel";
 
-import {
-  ITransactionRequest,
-  IUserJoinRequest,
-  IUserModifyReq,
-  UserRole,
-} from "./interfaces";
+import { ITransactionRequest, IUserJoinRequest, IUserModifyReq, UserRole } from "./interfaces";
 import axios from "axios";
 
 const BASE_URL = "http://119.203.225.3:80";
 
 axios.interceptors.response.use(
-  function (response) {
+  function(response) {
     return response;
   },
 
-  function (error) {
+  function(error) {
     if (error.response.status === 401) {
       localStorage.clear();
       window.location.href = "/login";
@@ -31,7 +26,7 @@ export const fetchAllUser = (jwt: string, page: number) => {
     method: "GET",
     url: `${BASE_URL}/admin/users?`,
     headers: { "Content-Type": "application/json", jwt },
-    params: { page: page },
+    params: { page: page }
   });
 };
 
@@ -47,9 +42,9 @@ export const fetchCoinUsage = (
     params: {
       coinName: coinName,
       fromLocalDateTime: fromLocalDateTime,
-      toLocalDateTime: toLocalDateTime,
+      toLocalDateTime: toLocalDateTime
     },
-    headers: { "Content-Type": "application/json", jwt },
+    headers: { "Content-Type": "application/json", jwt }
   });
 };
 
@@ -57,7 +52,7 @@ export const fetchAllCoins = (jwt: string) => {
   return axios({
     method: "GET",
     url: `${BASE_URL}/admin/coins`,
-    headers: { "Content-Type": "application/json", jwt },
+    headers: { "Content-Type": "application/json", jwt }
   });
 };
 
@@ -66,7 +61,7 @@ export const fetchCreateCoin = (jwt: string, coinName: string) => {
     method: "POST",
     url: `${BASE_URL}/admin/coin`,
     headers: { "Content-Type": "application/json", jwt },
-    data: { coinName: coinName },
+    data: { coinName: coinName }
   });
 };
 
@@ -75,7 +70,7 @@ export const fetchDeleteCoin = (jwt: string, coinNames: GridSelectionModel) => {
     method: "DELETE",
     url: `${BASE_URL}/admin/coin`,
     headers: { "Content-Type": "application/json", jwt },
-    data: { coinNameList: coinNames },
+    data: { coinNameList: coinNames }
   });
 };
 
@@ -92,8 +87,8 @@ export const fetchTransferCoinAll = (
     data: {
       coinName: coinName,
       coinValue: coinValue,
-      userRole: userRole,
-    },
+      userRole: userRole
+    }
   });
 };
 
@@ -110,8 +105,8 @@ export const fetchTransferCoin = (
     data: {
       coinName: coinName,
       coinValue: coinValue,
-      identifier: userNameList,
-    },
+      identifier: userNameList
+    }
   });
 };
 
@@ -124,8 +119,8 @@ export const fetchDeleteUser = (
     url: `${BASE_URL}/admin/user`,
     headers: { "Content-Type": "application/json", jwt },
     data: {
-      identifier: identifier,
-    },
+      identifier: identifier
+    }
   });
 };
 
@@ -134,7 +129,7 @@ export const fetchUpdateUser = (jwt: string, userDto: IUserModifyReq) => {
     method: "PUT",
     url: `${BASE_URL}/admin/user`,
     headers: { "Content-Type": "application/json", jwt },
-    data: userDto,
+    data: userDto
   });
 };
 
@@ -143,7 +138,7 @@ export const fetchCreateStore = (jwt: string, formData: FormData) => {
     method: "POST",
     url: `${BASE_URL}/admin/store`,
     headers: { jwt },
-    data: formData,
+    data: formData
   });
 };
 
@@ -151,7 +146,7 @@ export const fetchAllStore = (jwt: string, page: number) => {
   return axios({
     method: "GET",
     url: `${BASE_URL}/user/stores?page=${page}`,
-    headers: { "Content-Type": "application/json", jwt },
+    headers: { "Content-Type": "application/json", jwt }
   });
 };
 
@@ -165,12 +160,12 @@ export const fetchDeleteStore = (
     url: `${BASE_URL}/admin/store`,
     headers: {
       "Content-Type": "application/json",
-      jwt,
+      jwt
     },
     data: {
       name: name,
-      phoneNumber: phoneNumber,
-    },
+      phoneNumber: phoneNumber
+    }
   });
 };
 
@@ -182,7 +177,7 @@ export const fetchTransaction = (
     method: "GET",
     url: `${BASE_URL}/admin/trade`,
     params: transactionRequest,
-    headers: { "Content-Type": "application/json", jwt },
+    headers: { "Content-Type": "application/json", jwt }
   });
 };
 
@@ -194,7 +189,7 @@ export const fetchCreateUser = (
     method: "POST",
     url: `${BASE_URL}/user/user`,
     headers: { "Content-Type": "application/json", jwt },
-    data: UserJoinRequest,
+    data: UserJoinRequest
   });
 };
 
@@ -203,6 +198,6 @@ export const fetchUserCoins = (jwt: string, identifier: string) => {
     method: "GET",
     url: `${BASE_URL}/admin/user`,
     headers: { "Content-Type": "application/json", jwt },
-    params: { identifier: identifier },
+    params: { identifier: identifier }
   });
 };

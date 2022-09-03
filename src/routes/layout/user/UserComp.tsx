@@ -1,11 +1,6 @@
 import * as React from "react";
-import { SetStateAction, useEffect, useState } from "react";
-import {
-  DataGrid,
-  GridCellParams,
-  GridColDef,
-  GridSelectionModel,
-} from "@mui/x-data-grid";
+import { useState } from "react";
+import { DataGrid, GridCellParams, GridColDef, GridSelectionModel } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -13,12 +8,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { authAtom, modalStateAtom } from "../../../atoms";
 import { useQuery } from "react-query";
 import { fetchAllUser, fetchUserCoins } from "../../../api";
-import {
-  IPageDetail,
-  IUserCoins,
-  IUserDetail,
-  UserRole,
-} from "../../../interfaces";
+import { IPageDetail, IUserCoins } from "../../../interfaces";
 import { IconButton, Modal } from "@mui/material";
 import UserCompUpdatePw from "./modalComp/UserCompUpdatePw";
 import UserCompNew from "./modalComp/UserCompNew";
@@ -71,7 +61,7 @@ function UserComp() {
     { field: "name", headerName: "Name", width: 130 },
     { field: "dateCreated", headerName: "Create", width: 200 },
     { field: "lastUpdated", headerName: "Update", width: 200 },
-    { field: "userRole", headerName: "Role", width: 200 },
+    { field: "userRole", headerName: "Role", width: 200 }
   ];
 
   return userDataIsLoading ? (

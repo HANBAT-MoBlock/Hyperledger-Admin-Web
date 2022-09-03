@@ -1,15 +1,15 @@
 import Grid from "@mui/material/Grid";
 import CoinChart from "./component/CoinChart";
 import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import TransactionTable from "./component/TransactionTable";
 import { useQuery } from "react-query";
-import { ICoinDetail, IPageDetail } from "../../../interfaces";
-import { fetchAllCoins, fetchAllUser } from "../../../api";
+import { ICoinDetail } from "../../../interfaces";
+import { fetchAllCoins } from "../../../api";
 import { useRecoilValue } from "recoil";
 import { authAtom } from "../../../atoms";
-import { useEffect, useState } from "react";
-import { InputLabel, NativeSelect } from "@mui/material";
+import { NativeSelect } from "@mui/material";
 
 function HomeComp() {
   const jwt = useRecoilValue(authAtom);
@@ -44,7 +44,7 @@ function HomeComp() {
                 padding: 2,
                 pt: 3,
                 borderRadius: 10,
-                boxShadow: 3,
+                boxShadow: 3
               }}
             >
               <Box display="flex" sx={{ mb: 1 }}>
@@ -53,7 +53,7 @@ function HomeComp() {
                   onChange={(event) => setCoinOne(event.target.value)}
                   inputProps={{
                     name: "Coin",
-                    id: "coin-native",
+                    id: "coin-native"
                   }}
                 >
                   {coinList}
@@ -68,15 +68,16 @@ function HomeComp() {
                 padding: 2,
                 pt: 3,
                 borderRadius: 10,
-                boxShadow: 3,
+                boxShadow: 3
               }}
             >
-              <Box display="flex" sx={{ ml: "auto" }}>
+              <Box display="flex" sx={{ mb: 1 }}>
                 <NativeSelect
+                  sx={{ ml: "auto" }}
                   onChange={(event) => setCoinTwo(event.target.value)}
                   inputProps={{
                     name: "Coin",
-                    id: "coin-native",
+                    id: "coin-native"
                   }}
                 >
                   {coinList}

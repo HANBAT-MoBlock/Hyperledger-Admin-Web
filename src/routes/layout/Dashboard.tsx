@@ -32,14 +32,14 @@ function Dashboard() {
     <UserComp />,
     <CoinComp />,
     <ShopComp />,
-    <TransactionComp />,
+    <TransactionComp />
   ];
   const sidebarIcon = [
     <HomeIcon />,
     <GroupIcon />,
     <CurrencyBitcoinIcon />,
     <StoreIcon />,
-    <ReceiptLongIcon />,
+    <ReceiptLongIcon />
   ];
 
   const handleSideClick = (
@@ -56,12 +56,12 @@ function Dashboard() {
       <AppBar
         position="fixed"
         style={{
-          background: "#90CAF9",
+          background: "#90CAF9"
         }}
         sx={{
           width: `calc(100% - ${drawerWidth}px)`,
           ml: `${drawerWidth}px`,
-          borderRadius: 5,
+          borderRadius: 5
         }}
       >
         <Toolbar>
@@ -77,8 +77,8 @@ function Dashboard() {
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
-            boxSizing: "border-box",
-          },
+            boxSizing: "border-box"
+          }
         }}
         variant="permanent"
         anchor="left"

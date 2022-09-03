@@ -8,13 +8,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { authAtom, modalStateAtom } from "../../../atoms";
 import { useQuery } from "react-query";
 import { fetchAllCoins } from "../../../api";
-import { IconButton, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import CoinCompNew from "./modalComp/CoinCompNew";
 import DeleteCoin from "./modalComp/CoinCompDel";
 import CoinCompTransfer from "./modalComp/CoinCompTransfer";
 import CoinCompDeploy from "./modalComp/CoinCompDeploy";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { ICoinDetail } from "../../../interfaces";
 
 function CoinComp() {
@@ -32,7 +30,7 @@ function CoinComp() {
 
   const columns: GridColDef[] = [
     { field: "name", headerName: "CoinName", width: 130 },
-    { field: "issuance", headerName: "issuance", width: 130 },
+    { field: "issuance", headerName: "issuance", width: 130 }
   ];
 
   return isLoading ? (

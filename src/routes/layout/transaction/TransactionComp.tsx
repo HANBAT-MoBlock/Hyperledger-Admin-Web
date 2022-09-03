@@ -48,7 +48,7 @@ function TransactionComp() {
     { field: "receiverIdentifier", headerName: "Receiver", width: 200 },
     { field: "dateCreated", headerName: "Date", width: 200 },
     { field: "coinName", headerName: "Coin", width: 100 },
-    { field: "amount", headerName: "Amount", width: 100 },
+    { field: "amount", headerName: "Amount", width: 100 }
   ];
 
   return isLoading ? (

@@ -20,7 +20,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 function createForm(
@@ -30,7 +30,7 @@ function createForm(
   const formData = new FormData();
 
   const blob = new Blob([JSON.stringify(formDetail)], {
-    type: "application/json",
+    type: "application/json"
   });
 
   formData.append("createStoreRequest", blob);
@@ -125,7 +125,7 @@ function ShopCompNew() {
                 {
                   storeName: shopName,
                   address: shopAddress,
-                  phoneNumber: shopNumber,
+                  phoneNumber: shopNumber
                 },
                 imageFile
               )

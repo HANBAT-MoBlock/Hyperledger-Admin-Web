@@ -20,7 +20,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 type props = {
@@ -53,7 +53,7 @@ function CoinCompDeploy({ coinList }: props) {
             onChange={(event) => setCoinName(event.target.value)}
             inputProps={{
               name: "Coin",
-              id: "coin-native",
+              id: "coin-native"
             }}
           >
             {coinOptions}
@@ -73,7 +73,7 @@ function CoinCompDeploy({ coinList }: props) {
             }
             inputProps={{
               name: "Role",
-              id: "role-native",
+              id: "role-native"
             }}
           >
             <option value={1}>학생</option>

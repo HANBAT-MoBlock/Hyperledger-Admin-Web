@@ -1,5 +1,5 @@
 import ApexChart from "react-apexcharts";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { authAtom, transactionAtom } from "../../../../atoms";
 import { useQuery } from "react-query";
 import { fetchCoinUsage } from "../../../../api";
@@ -37,41 +37,41 @@ function CoinChart({ coinName }: props) {
           name: "VALUE",
           data: data?.map(
             (usage) => usage.tradingVolume
-          ) as unknown as number[],
-        },
+          ) as unknown as number[]
+        }
       ]}
       options={{
         chart: {
           height: 350,
           zoom: {
-            autoScaleYaxis: true,
-          },
+            autoScaleYaxis: true
+          }
         },
         dataLabels: {
-          enabled: false,
+          enabled: false
         },
         stroke: {
-          curve: "straight",
+          curve: "straight"
         },
 
         title: {
           text: `usage of ${coinName.toUpperCase()} coin`,
-          align: "left",
+          align: "left"
         },
         subtitle: {
           text: "usage Movements",
-          align: "left",
+          align: "left"
         },
         labels: data?.map((time) => time.tradingDate) as unknown as string[],
         xaxis: {
-          type: "datetime",
+          type: "datetime"
         },
         yaxis: {
-          opposite: true,
+          opposite: true
         },
         legend: {
-          horizontalAlign: "left",
-        },
+          horizontalAlign: "left"
+        }
       }}
     />
   );

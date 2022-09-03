@@ -20,7 +20,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 function UserCompNew() {
@@ -91,7 +91,7 @@ function UserCompNew() {
             }
             inputProps={{
               name: "Role",
-              id: "role-native",
+              id: "role-native"
             }}
           >
             <option value={1}>학생</option>
@@ -111,7 +111,7 @@ function UserCompNew() {
               name: userName,
               userRole: userRole,
               identifier: userId,
-              password: userPassword,
+              password: userPassword
             })
               .then((response) => {
                 setLoading((prevState) => !prevState);

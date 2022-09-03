@@ -2,7 +2,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import SignIn from "./routes/layout/login/SignIn";
 import Dashboard from "./routes/layout/Dashboard";
 
-interface IRouterProps {}
+interface IRouterProps {
+}
 
 function Router({}: IRouterProps) {
   return (

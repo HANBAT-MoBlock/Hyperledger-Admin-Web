@@ -2,9 +2,9 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { modalStateAtom, transactionAtom } from "../../../../atoms";
 import { NativeSelect } from "@mui/material";
 import Grid from "@mui/material/Grid";
@@ -18,7 +18,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 function TransactionCompDate() {
@@ -38,7 +38,7 @@ function TransactionCompDate() {
     "DAY",
     "HOUR",
     "MINUTE",
-    "SECOND",
+    "SECOND"
   ];
   const dateTextHint = [
     "2022",
@@ -46,7 +46,7 @@ function TransactionCompDate() {
     "2022-01-01",
     "2022-01-01T22",
     "2022-01-01T22:02",
-    "2022-01-01T22:02:02",
+    "2022-01-01T22:02:02"
   ];
   const defaultDate = "2000-01-01T00:00:00";
   const makeTimeFormat = (inputDate: string) => {
@@ -71,7 +71,7 @@ function TransactionCompDate() {
           <NativeSelect
             inputProps={{
               name: "dateFlag",
-              id: "role-native",
+              id: "role-native"
             }}
             onChange={(event) => setDateFlag(+event.target.value)}
           >
@@ -134,7 +134,7 @@ function TransactionCompDate() {
                 ...currVal,
                 dateTimeRange,
                 fromLocalDateTime,
-                untilLocalDateTime,
+                untilLocalDateTime
               };
             });
             setModalState((prevState) => !prevState);

@@ -19,7 +19,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 type props = {
@@ -36,7 +36,7 @@ function UserCompUpdatePw({ userDto }: props) {
     wantToChangeName: "",
     wantToChangeIdentifier: "",
     wantToChangePlainPassword: null,
-    requestedIdentifier: "",
+    requestedIdentifier: ""
   });
   useEffect(
     () =>
@@ -45,7 +45,7 @@ function UserCompUpdatePw({ userDto }: props) {
         wantToChangeIdentifier: userDto.identifier,
         wantToChangeUserRole: userDto.userRole,
         wantToChangeName: userDto.name,
-        wantToChangePlainPassword: userPW,
+        wantToChangePlainPassword: userPW
       }),
     [userPW]
   );

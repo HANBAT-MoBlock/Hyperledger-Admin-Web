@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+
 const date = new Date();
 
 const year = date.getFullYear();
@@ -10,12 +11,12 @@ const seconds = ("0" + date.getSeconds()).slice(-2);
 
 export const authAtom = atom({
   key: "auth",
-  default: { accessToken: "" },
+  default: { accessToken: "" }
 });
 
 export const modalStateAtom = atom({
   key: "modalState",
-  default: false,
+  default: false
 });
 
 export const transactionAtom = atom({
@@ -30,6 +31,6 @@ export const transactionAtom = atom({
     receiverIdentifier: "",
     receiverUserRole: "",
     senderIdentifier: "",
-    senderUserRole: "",
-  },
+    senderUserRole: ""
+  }
 });

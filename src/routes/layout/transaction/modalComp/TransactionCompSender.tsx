@@ -6,13 +6,7 @@ import { useState } from "react";
 import Button from "@mui/material/Button";
 import { useSetRecoilState } from "recoil";
 import { modalStateAtom, transactionAtom } from "../../../../atoms";
-import {
-  FormControl,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  Switch,
-} from "@mui/material";
+import { FormControl, FormLabel, Radio, RadioGroup, Switch } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import { UserRole } from "../../../../interfaces";
@@ -26,7 +20,7 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 4
 };
 
 function TransactionCompSender() {
@@ -107,13 +101,13 @@ function TransactionCompSender() {
           onClick={() => {
             checked
               ? setTransactionRequest((currVal) => {
-                  const senderUserRole = senderRole;
-                  return { ...currVal, senderUserRole };
-                })
+                const senderUserRole = senderRole;
+                return { ...currVal, senderUserRole };
+              })
               : setTransactionRequest((currVal) => {
-                  const senderIdentifier = sender;
-                  return { ...currVal, senderIdentifier };
-                });
+                const senderIdentifier = sender;
+                return { ...currVal, senderIdentifier };
+              });
             setModalState((prevState) => !prevState);
           }}
         >
