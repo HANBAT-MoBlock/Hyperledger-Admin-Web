@@ -21,15 +21,15 @@ function CoinComp() {
   const jwt = useRecoilValue(authAtom);
   const [modState, setModState] = useRecoilState(modalStateAtom);
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
-  const [page, setPage] = useState(1);
   const [modalComp, setModalComp] = useState(<Box />);
   const handleOpen = () => {
     setModState(true);
   };
   const handleClose = () => setModState(false);
-  const { isLoading, data } = useQuery<ICoinDetail>(["allCoins", page], () =>
-    fetchAllCoins(jwt.accessToken, page).then((response) => response.data)
+  const { isLoading, data } = useQuery<ICoinDetail>(["allCoins"], () =>
+    fetchAllCoins(jwt.accessToken).then((response) => response.data)
   );
+
   const columns: GridColDef[] = [
     { field: "name", headerName: "CoinName", width: 130 },
     { field: "issuance", headerName: "issuance", width: 130 },
@@ -83,23 +83,23 @@ function CoinComp() {
         >
           <Typography>코인 제거</Typography>
         </Button>
-        <IconButton
-          aria-label="backward"
-          disabled={page < 2}
-          sx={{ ml: "auto" }}
-          onClick={() => setPage(page - 1)}
-        >
-          <ArrowBackIosNewIcon />
-        </IconButton>
-        <IconButton
-          aria-label="forward"
-          disabled={page == data!.totalPage || data!.totalPage == 0}
-          onClick={() => {
-            setPage(page + 1);
-          }}
-        >
-          <ArrowForwardIosIcon />
-        </IconButton>
+        {/*<IconButton*/}
+        {/*  aria-label="backward"*/}
+        {/*  disabled={page < 2}*/}
+        {/*  sx={{ ml: "auto" }}*/}
+        {/*  onClick={() => setPage(page - 1)}*/}
+        {/*>*/}
+        {/*  <ArrowBackIosNewIcon />*/}
+        {/*</IconButton>*/}
+        {/*<IconButton*/}
+        {/*  aria-label="forward"*/}
+        {/*  disabled={page == data!.totalPage || data!.totalPage == 0}*/}
+        {/*  onClick={() => {*/}
+        {/*    setPage(page + 1);*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  <ArrowForwardIosIcon />*/}
+        {/*</IconButton>*/}
         <Modal
           open={modState}
           onClose={handleClose}

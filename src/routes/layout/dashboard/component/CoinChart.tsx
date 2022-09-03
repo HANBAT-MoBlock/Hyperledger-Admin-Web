@@ -1,6 +1,6 @@
 import ApexChart from "react-apexcharts";
-import { useRecoilValue } from "recoil";
-import { authAtom } from "../../../../atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authAtom, transactionAtom } from "../../../../atoms";
 import { useQuery } from "react-query";
 import { fetchCoinUsage } from "../../../../api";
 
@@ -9,16 +9,21 @@ interface ICoinUsage {
   tradingVolume: number;
 }
 
-function CoinChart() {
+type props = {
+  coinName: string;
+};
+
+function CoinChart({ coinName }: props) {
   const jwt = useRecoilValue(authAtom);
+  const systemDate = useRecoilValue(transactionAtom);
   const { isLoading, data } = useQuery<ICoinUsage[]>(
-    "coinUsage",
+    ["coinUsage", coinName],
     async () =>
       await fetchCoinUsage(
         jwt.accessToken,
-        "test",
-        "2020-07-01T00:00:00",
-        "2023-08-01T00:00:00"
+        coinName,
+        systemDate.fromLocalDateTime,
+        systemDate.untilLocalDateTime
       ).then((response) => response.data)
   );
 
@@ -39,7 +44,7 @@ function CoinChart() {
         chart: {
           height: 350,
           zoom: {
-            enabled: false,
+            autoScaleYaxis: true,
           },
         },
         dataLabels: {
@@ -50,7 +55,7 @@ function CoinChart() {
         },
 
         title: {
-          text: "usage of TEST coin",
+          text: `usage of ${coinName.toUpperCase()} coin`,
           align: "left",
         },
         subtitle: {

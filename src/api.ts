@@ -6,9 +6,9 @@ import {
   IUserModifyReq,
   UserRole,
 } from "./interfaces";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
-const BASE_URL = "http://119.203.225.3:8081";
+const BASE_URL = "http://119.203.225.3:80";
 
 axios.interceptors.response.use(
   function (response) {
@@ -19,6 +19,8 @@ axios.interceptors.response.use(
     if (error.response.status === 401) {
       localStorage.clear();
       window.location.href = "/login";
+    } else {
+      console.log(error);
     }
     return Promise.reject(error);
   }
@@ -51,11 +53,10 @@ export const fetchCoinUsage = (
   });
 };
 
-export const fetchAllCoins = (jwt: string, page: number) => {
+export const fetchAllCoins = (jwt: string) => {
   return axios({
     method: "GET",
     url: `${BASE_URL}/admin/coins`,
-    params: { page: page },
     headers: { "Content-Type": "application/json", jwt },
   });
 };
@@ -191,7 +192,7 @@ export const fetchCreateUser = (
 ) => {
   return axios({
     method: "POST",
-    url: `${BASE_URL}/user`,
+    url: `${BASE_URL}/user/user`,
     headers: { "Content-Type": "application/json", jwt },
     data: UserJoinRequest,
   });

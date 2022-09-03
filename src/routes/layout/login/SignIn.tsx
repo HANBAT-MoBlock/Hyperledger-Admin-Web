@@ -26,10 +26,11 @@ function SignIn() {
   let history = useHistory();
 
   const fetchLoginApi = () => {
-    fetch(`http://119.203.225.3:8081/admin/login?email=${id}&password=${pw}`)
+    fetch(`http://119.203.225.3:8080/admin/login?email=${id}&password=${pw}`)
       .then((response) => {
         if (!response.ok) {
-          alert("error alert");
+          alert("계정 정보가 일치하지 않습니다.");
+          window.location.replace("/login");
           throw new Error();
         } else {
           return response.json();
@@ -102,10 +103,6 @@ function SignIn() {
               id="password"
               autoComplete="current-password"
               onChange={(event) => setPw(event.target.value)}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"

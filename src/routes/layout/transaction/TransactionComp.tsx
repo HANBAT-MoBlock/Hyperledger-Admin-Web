@@ -96,7 +96,7 @@ function TransactionComp() {
           sx={{ ml: "auto" }}
           onClick={() =>
             setTransactionRequest((currVal) => {
-              const page = transactionRequest.page + 1;
+              const page = transactionRequest.page - 1;
               return { ...currVal, page };
             })
           }
@@ -110,7 +110,7 @@ function TransactionComp() {
           }
           onClick={() => {
             setTransactionRequest((currVal) => {
-              const page = transactionRequest.page - 1;
+              const page = transactionRequest.page + 1;
               return { ...currVal, page };
             });
           }}

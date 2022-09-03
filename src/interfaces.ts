@@ -18,14 +18,13 @@ export interface IPageDetail {
 }
 
 export interface ICoinDtoList {
-  name: string;
   issuance: number;
+  name: string;
 }
 
 export interface ICoinDetail {
-  totalCoinNumber: number;
-  totalPage: number;
   coinDtoList: ICoinDtoList[];
+  totalIssuance: number;
 }
 
 export interface IUserModifyReq {

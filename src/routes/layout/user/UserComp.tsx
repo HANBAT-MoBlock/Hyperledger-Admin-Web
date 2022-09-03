@@ -35,7 +35,7 @@ function UserComp() {
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([]);
   const [page, setPage] = useState(1);
   const [modalComp, setModalComp] = useState(<UserCompNew />);
-  const [identifier, setIdentifier] = useState("test");
+  const [identifier, setIdentifier] = useState("initial");
   const [detailTable, setDetailTable] = useState(false);
 
   const handleOpen = (flag: number) => {
@@ -56,13 +56,15 @@ function UserComp() {
     );
 
   const { isLoading: userCoinsIsLoading, data: userCoins } =
-    useQuery<IUserCoins>(["userCoins", identifier], () =>
-      fetchUserCoins(jwt.accessToken, identifier).then(
+    useQuery<IUserCoins>(["userCoins", identifier], async () => {
+      // await setIdentifier(userData!.userDtoList[0].identifier);
+      if (identifier === "initial") {
+        await setIdentifier(userData!.userDtoList[0].identifier);
+      }
+      return await fetchUserCoins(jwt.accessToken, identifier).then(
         (response) => response.data
-      )
-    );
-
-  useEffect(() => console.log(userCoins), [userCoins]);
+      );
+    });
 
   const columns: GridColDef[] = [
     { field: "identifier", headerName: "ID", width: 130 },
