@@ -33,10 +33,10 @@ function DeleteCoin({ coinNames }: props) {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        코인 삭제
+        코인 제거
       </Typography>
       <Typography sx={{ mt: 2 }}>
-        삭제될 코인 : {coinNames.toString()}
+        삭제될 코인 : {coinNames.join(' / ')}
       </Typography>
       <br />
       <Box display="flex">

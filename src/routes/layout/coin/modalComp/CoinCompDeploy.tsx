@@ -42,7 +42,7 @@ function CoinCompDeploy({ coinList }: props) {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        코인 전송
+        코인 배포
       </Typography>
       <Grid container spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={4}>
@@ -84,6 +84,8 @@ function CoinCompDeploy({ coinList }: props) {
           <TextField
             label="코인수량"
             variant="outlined"
+            size="small"
+            sx={{mt:2}}
             onChange={(event) => setCoinValue(event.target.value)}
           />
         </Grid>

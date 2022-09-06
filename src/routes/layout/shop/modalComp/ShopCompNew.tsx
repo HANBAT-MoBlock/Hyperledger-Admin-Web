@@ -81,7 +81,7 @@ function ShopCompNew() {
             fullWidth
             size="small"
             sx={{ mt: 1 }}
-            label="주소"
+            label="상세설명 url"
             variant="outlined"
             onChange={(event) => setShopAddress(event.target.value)}
           />

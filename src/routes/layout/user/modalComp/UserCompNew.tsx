@@ -35,7 +35,7 @@ function UserCompNew() {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        유저 생성
+        계정 생성
       </Typography>
       <Grid container spacing={1} sx={{ mt: 2 }}>
         <Grid item xs={12}>

@@ -64,10 +64,11 @@ function CoinCompTransfer({ coinList }: props) {
             추가
           </Button>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12}>
           <InputLabel variant="standard" htmlFor="coin-native">
             Coin
           </InputLabel>
+          <Box sx={{display:"flex"}} >
           <NativeSelect
             inputProps={{
               name: "Coin",
@@ -77,13 +78,14 @@ function CoinCompTransfer({ coinList }: props) {
           >
             {coinOptions}
           </NativeSelect>
-        </Grid>
-        <Grid item xs={5}>
-          <TextField
-            label="코인수량"
-            variant="outlined"
-            onChange={(event) => setCoinValue(event.target.value)}
-          />
+            <TextField
+              sx={{ml:3}}
+              label="코인수량"
+              variant="outlined"
+              size="small"
+              onChange={(event) => setCoinValue(event.target.value)}
+            />
+          </Box>
         </Grid>
       </Grid>
       <br />

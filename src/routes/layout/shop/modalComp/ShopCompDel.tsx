@@ -33,10 +33,10 @@ function ShopCompDel({ name, phoneNumber }: props) {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Delete Shop
+        가맹점 삭제
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        삭제할 가맹점 : {name} / {phoneNumber}
+        삭제할 가맹점 : {name} _ {phoneNumber}
       </Typography>
       <br />
       <Box display="flex">

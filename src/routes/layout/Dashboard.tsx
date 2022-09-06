@@ -61,7 +61,6 @@ function Dashboard() {
         sx={{
           width: `calc(100% - ${drawerWidth}px)`,
           ml: `${drawerWidth}px`,
-          borderRadius: 5
         }}
       >
         <Toolbar>

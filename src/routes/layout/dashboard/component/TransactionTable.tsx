@@ -27,7 +27,11 @@ function TransactionTable() {
   return isLoading ? (
     <span>loading...</span>
   ) : (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} sx={{padding: 2,
+      pt: 3,
+      borderRadius: 10,
+      boxShadow: 3,
+      height:650}}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -37,7 +41,7 @@ function TransactionTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data!.transferResponseList.map((row) => (
+          {data!.transferResponseList.map((row,index) => (
             <TableRow
               key={row.transactionId}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

@@ -29,7 +29,7 @@ function CoinCompNew() {
   return (
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        코인 생성
+        코인 발행
       </Typography>
 
       <TextField
@@ -37,6 +37,7 @@ function CoinCompNew() {
         id="outlined-basic"
         label="생성할 코인의 이름"
         variant="outlined"
+        size="small"
         onChange={(event) => setCoinName(event.target.value)}
       />
       <br />

@@ -35,7 +35,7 @@ function UserCompDel({ userList }: props) {
         계정 삭제
       </Typography>
       <Typography sx={{ mt: 2 }}>
-        삭제할 유저 : {userList.toString()}
+        삭제할 유저 : {userList.join(' / ')}
       </Typography>
       <br />
       <Box display="flex">
