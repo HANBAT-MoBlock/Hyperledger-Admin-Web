@@ -7,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import StickyFooter from "../../../component/StickyFooter";
 import StickyHeader from "../../../component/StickyHeader";
@@ -24,7 +23,7 @@ function SignIn() {
   let history = useHistory();
 
   const fetchLoginApi = () => {
-    fetch(`http://119.203.225.3:8080/admin/login?email=${id}&password=${pw}`)
+    fetch(`http://119.203.225.3:80/admin/login?email=${id}&password=${pw}`)
       .then((response) => {
         if (!response.ok) {
           alert("계정 정보가 일치하지 않습니다.");
@@ -50,19 +49,26 @@ function SignIn() {
     fetchLoginApi();
   };
   return (
-    <ThemeProvider theme={theme}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        alignItems: "center"
+      }}
+    >
+      <CssBaseline />
       <StickyHeader />
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             pl: 2,
             pr: 2,
             pt: 6,
             pb: 2,
+            width: "25vw",
             borderRadius: 2,
             boxShadow: 2,
-            marginTop: 8,
+            mb:20,
             display: "flex",
             flexDirection: "column",
             alignItems: "center"
@@ -112,9 +118,8 @@ function SignIn() {
             </Button>
           </Box>
         </Box>
-      </Container>
       <StickyFooter />
-    </ThemeProvider>
+    </Box>
   );
 }
 

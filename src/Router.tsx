@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import SignIn from "./routes/layout/login/SignIn";
 import Dashboard from "./routes/layout/Dashboard";
 
@@ -14,6 +14,9 @@ function Router({}: IRouterProps) {
         </Route>
         <Route path="/login">
           <SignIn />
+        </Route>
+        <Route path="/">
+          <Redirect to="login"/>
         </Route>
       </Switch>
     </BrowserRouter>

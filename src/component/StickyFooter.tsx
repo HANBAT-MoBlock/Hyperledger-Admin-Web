@@ -22,9 +22,10 @@ export default function StickyFooter() {
     <Box
       component="footer"
       sx={{
+        minWidth:"100vw",
         py: 3,
         px: 2,
-        mt: "26vh",
+        pt:"auto",
         backgroundColor: (theme) =>
           theme.palette.mode === "light"
             ? theme.palette.grey[200]

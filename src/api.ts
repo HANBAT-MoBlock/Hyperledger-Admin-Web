@@ -11,8 +11,9 @@ axios.interceptors.response.use(
   },
 
   function(error) {
-    if (error.response.status === 401) {
+    if (error.response.status === 401 || error.response.status == 403) {
       localStorage.clear();
+      alert("잘못된 접근 입니다.")
       window.location.href = "/login";
     } else {
       console.log(error);
