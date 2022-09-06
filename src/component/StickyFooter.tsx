@@ -8,7 +8,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
+      <Link color="inherit" href="https://www.hanbat.ac.kr/">
         HANBAT NATIONAL UNIVERSITY. ALL RIGHT RESERVED
       </Link>{" "}
       {new Date().getFullYear()}
@@ -25,7 +25,6 @@ export default function StickyFooter() {
         minWidth:"100vw",
         py: 3,
         px: 2,
-        pt:"auto",
         backgroundColor: (theme) =>
           theme.palette.mode === "light"
             ? theme.palette.grey[200]

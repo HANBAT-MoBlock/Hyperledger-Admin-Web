@@ -81,23 +81,6 @@ function CoinComp() {
         >
           <Typography>코인 제거</Typography>
         </Button>
-        {/*<IconButton*/}
-        {/*  aria-label="backward"*/}
-        {/*  disabled={page < 2}*/}
-        {/*  sx={{ ml: "auto" }}*/}
-        {/*  onClick={() => setPage(page - 1)}*/}
-        {/*>*/}
-        {/*  <ArrowBackIosNewIcon />*/}
-        {/*</IconButton>*/}
-        {/*<IconButton*/}
-        {/*  aria-label="forward"*/}
-        {/*  disabled={page == data!.totalPage || data!.totalPage == 0}*/}
-        {/*  onClick={() => {*/}
-        {/*    setPage(page + 1);*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <ArrowForwardIosIcon />*/}
-        {/*</IconButton>*/}
         <Modal
           open={modState}
           onClose={handleClose}

@@ -94,3 +94,8 @@ export interface ITransactionRequest {
   senderIdentifier: string;
   senderUserRole: string;
 }
+
+export interface ICoinShare {
+  issuance: number;
+  name : string;
+}

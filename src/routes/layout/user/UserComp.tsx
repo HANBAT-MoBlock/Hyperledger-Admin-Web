@@ -47,7 +47,6 @@ function UserComp() {
 
   const { isLoading: userCoinsIsLoading, data: userCoins } =
     useQuery<IUserCoins>(["userCoins", identifier], async () => {
-      // await setIdentifier(userData!.userDtoList[0].identifier);
       if (identifier === "initial") {
         await setIdentifier(userData!.userDtoList[0].identifier);
       }
