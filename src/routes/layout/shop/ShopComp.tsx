@@ -37,9 +37,9 @@ function ShopComp() {
   );
 
   const columns: GridColDef[] = [
-    { field: "phoneNumber", headerName: "PhoneNumber", width: 130 },
-    { field: "name", headerName: "Name", width: 130 },
-    { field: "address", headerName: "URL", width: 400 }
+    { field: "name", headerName: "Name", width: 250 },
+    { field: "phoneNumber", headerName: "PhoneNumber", width: 150 },
+    { field: "address", headerName: "URL", width: 500 }
   ];
 
   return isLoading ? (

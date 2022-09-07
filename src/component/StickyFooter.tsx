@@ -23,8 +23,7 @@ export default function StickyFooter() {
       component="footer"
       sx={{
         minWidth:"100vw",
-        py: 3,
-        px: 2,
+        py: 1,
         backgroundColor: (theme) =>
           theme.palette.mode === "light"
             ? theme.palette.grey[200]

@@ -48,7 +48,7 @@ function HomeComp() {
                 pt: 3,
                 borderRadius: 10,
                 boxShadow: 3,
-                height:320
+                height:"36vh"
               }}
             >
               <CoinShareChart coinList={data!.coinDtoList} totalIssuance={totalIssuance}/>
@@ -61,7 +61,8 @@ function HomeComp() {
                 padding: 2,
                 pt: 3,
                 borderRadius: 10,
-                boxShadow: 3
+                boxShadow: 3,
+                height:"36vh"
               }}
             >
               <Box display="flex" sx={{ mb: 1 }}>
@@ -85,7 +86,8 @@ function HomeComp() {
                 padding: 2,
                 pt: 3,
                 borderRadius: 10,
-                boxShadow: 3
+                boxShadow: 3,
+                height:"36vh"
               }}
             >
               <Box display="flex" sx={{ mb: 1 }}>

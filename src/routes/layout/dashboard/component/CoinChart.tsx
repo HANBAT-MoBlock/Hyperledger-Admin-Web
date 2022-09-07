@@ -42,7 +42,7 @@ function CoinChart({ coinName }: props) {
       ]}
       options={{
         chart: {
-          height: 350,
+          // height: 350,
           zoom: {
             autoScaleYaxis: true
           }

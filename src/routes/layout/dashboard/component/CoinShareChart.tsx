@@ -14,7 +14,7 @@ function CoinShareChart({ coinList, totalIssuance }: props) {
       series={coinList.map((element) => element.issuance)}
       options={{
         chart: {
-          height: 350,
+          // height: 300,
           zoom: {
             // autoScaleYaxis: true
           }

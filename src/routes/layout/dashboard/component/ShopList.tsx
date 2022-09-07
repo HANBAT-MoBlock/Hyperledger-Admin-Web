@@ -31,7 +31,7 @@ function ShopList() {
       pt: 3,
       borderRadius: 10,
       boxShadow: 3,
-      height:320}}>
+      height:"36vh"}}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>

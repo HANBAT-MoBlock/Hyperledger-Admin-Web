@@ -31,7 +31,7 @@ function TransactionTable() {
       pt: 3,
       borderRadius: 10,
       boxShadow: 3,
-      height:650}}>
+      height:"72vh"}}>
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
