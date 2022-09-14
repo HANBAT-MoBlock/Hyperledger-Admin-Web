@@ -16,7 +16,7 @@ function Router({}: IRouterProps) {
           <SignIn />
         </Route>
         <Route path="/">
-          <Redirect to="login"/>
+          <Redirect to="login" />
         </Route>
       </Switch>
     </BrowserRouter>

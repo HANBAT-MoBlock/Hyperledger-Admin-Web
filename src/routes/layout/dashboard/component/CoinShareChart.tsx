@@ -2,13 +2,13 @@ import ApexChart from "react-apexcharts";
 import { ICoinDtoList } from "../../../../interfaces";
 
 type props = {
-  coinList : ICoinDtoList[];
-  totalIssuance : number;
+  coinList: ICoinDtoList[];
+  totalIssuance: number;
 };
 
 function CoinShareChart({ coinList, totalIssuance }: props) {
 
-  return(
+  return (
     <ApexChart
       type="pie"
       series={coinList.map((element) => element.issuance)}
@@ -30,7 +30,7 @@ function CoinShareChart({ coinList, totalIssuance }: props) {
           text: `COIN SHARE`,
           align: "left"
         },
-        labels: coinList.map((element) => element.name),
+        labels: coinList.map((element) => element.name)
       }}
     />
   );

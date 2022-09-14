@@ -85,7 +85,7 @@ function CoinCompDeploy({ coinList }: props) {
             label="코인수량"
             variant="outlined"
             size="small"
-            sx={{mt:2}}
+            sx={{ mt: 2 }}
             onChange={(event) => setCoinValue(event.target.value)}
           />
         </Grid>

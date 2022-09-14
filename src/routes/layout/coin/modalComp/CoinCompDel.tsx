@@ -36,7 +36,7 @@ function DeleteCoin({ coinNames }: props) {
         코인 제거
       </Typography>
       <Typography sx={{ mt: 2 }}>
-        삭제될 코인 : {coinNames.join(' / ')}
+        삭제될 코인 : {coinNames.join(" / ")}
       </Typography>
       <br />
       <Box display="flex">

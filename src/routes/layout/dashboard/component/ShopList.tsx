@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import * as React from "react";
 import { useQuery } from "react-query";
 import { IShopDetail } from "../../../../interfaces";
@@ -23,41 +22,43 @@ function ShopList() {
       )
   );
 
-  console.log(data)
+  console.log(data);
 
 
-  return isLoading? <span>loading...</span>:
-    (<TableContainer component={Paper} sx={{padding: 2,
-      pt: 3,
-      borderRadius: 10,
-      boxShadow: 3,
-      height:"36vh"}}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>상점 명</TableCell>
-            <TableCell align="right">전화번호</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data!.storeResponseList.map((row,index) => (
-            index<4?
-            <TableRow
-              key={row.phoneNumber}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.phoneNumber}</TableCell>
+  return isLoading ? <span>loading...</span> :
+    (<TableContainer component={Paper} sx={{
+        padding: 2,
+        pt: 3,
+        borderRadius: 10,
+        boxShadow: 3,
+        height: "37vh"
+      }}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>상점 명</TableCell>
+              <TableCell align="right">전화번호</TableCell>
             </TableRow>
-              : <span/>
+          </TableHead>
+          <TableBody>
+            {data!.storeResponseList.map((row, index) => (
+              index < 4 ?
+                <TableRow
+                  key={row.phoneNumber}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.name}
+                  </TableCell>
+                  <TableCell align="right">{row.phoneNumber}</TableCell>
+                </TableRow>
+                : <span />
 
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    )
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
 }
 
-export default ShopList
+export default ShopList;

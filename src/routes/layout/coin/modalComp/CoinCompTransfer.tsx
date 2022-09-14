@@ -68,18 +68,18 @@ function CoinCompTransfer({ coinList }: props) {
           <InputLabel variant="standard" htmlFor="coin-native">
             Coin
           </InputLabel>
-          <Box sx={{display:"flex"}} >
-          <NativeSelect
-            inputProps={{
-              name: "Coin",
-              id: "coin-native"
-            }}
-            onChange={(event) => setCoinName(event.target.value)}
-          >
-            {coinOptions}
-          </NativeSelect>
+          <Box sx={{ display: "flex" }}>
+            <NativeSelect
+              inputProps={{
+                name: "Coin",
+                id: "coin-native"
+              }}
+              onChange={(event) => setCoinName(event.target.value)}
+            >
+              {coinOptions}
+            </NativeSelect>
             <TextField
-              sx={{ml:3}}
+              sx={{ ml: 3 }}
               label="코인수량"
               variant="outlined"
               size="small"

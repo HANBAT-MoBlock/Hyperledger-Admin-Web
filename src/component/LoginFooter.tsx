@@ -22,7 +22,7 @@ export default function LoginFooter() {
     <Box
       component="footer"
       sx={{
-        minWidth:"100vw",
+        minWidth: "100vw",
         py: 1,
         backgroundColor: (theme) =>
           theme.palette.mode === "light"

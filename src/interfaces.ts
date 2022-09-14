@@ -97,5 +97,5 @@ export interface ITransactionRequest {
 
 export interface ICoinShare {
   issuance: number;
-  name : string;
+  name: string;
 }

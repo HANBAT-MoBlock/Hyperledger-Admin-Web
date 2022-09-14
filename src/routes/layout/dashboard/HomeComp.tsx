@@ -5,11 +5,11 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import TransactionTable from "./component/TransactionTable";
 import { useQuery } from "react-query";
-import { ICoinDetail, ICoinShare } from "../../../interfaces";
+import { ICoinDetail } from "../../../interfaces";
 import { fetchAllCoins } from "../../../api";
 import { useRecoilValue } from "recoil";
 import { authAtom } from "../../../atoms";
-import { NativeSelect, Stack, styled } from "@mui/material";
+import { NativeSelect } from "@mui/material";
 import CoinShareChart from "./component/CoinShareChart";
 import ShopList from "./component/ShopList";
 
@@ -20,11 +20,11 @@ function HomeComp() {
   const [coinTwo, setCoinTwo] = useState(1);
   const [totalIssuance, setTotalIssuance] = useState(0);
 
-  const { isLoading, data } = useQuery<ICoinDetail>(["allCoins"],  async () =>
-     await fetchAllCoins(jwt.accessToken)
+  const { isLoading, data } = useQuery<ICoinDetail>(["allCoins"], async () =>
+    await fetchAllCoins(jwt.accessToken)
       .then((response) => response.data)
       .then(async (res) => {
-        await setTotalIssuance(res.totalIssuance)
+        await setTotalIssuance(res.totalIssuance);
         return res;
       })
   );
@@ -36,7 +36,7 @@ function HomeComp() {
       <Grid item xs={8}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
-            <ShopList/>
+            <ShopList />
           </Grid>
           <Grid item xs={6}>
             <Box
@@ -45,10 +45,10 @@ function HomeComp() {
                 pt: 3,
                 borderRadius: 10,
                 boxShadow: 3,
-                height:"36vh"
+                height: "37vh"
               }}
             >
-              <CoinShareChart coinList={data!.coinDtoList} totalIssuance={totalIssuance}/>
+              <CoinShareChart coinList={data!.coinDtoList} totalIssuance={totalIssuance} />
             </Box>
           </Grid>
 
@@ -59,7 +59,7 @@ function HomeComp() {
                 pt: 3,
                 borderRadius: 10,
                 boxShadow: 3,
-                height:"36vh"
+                height: "37vh"
               }}
             >
               <Box display="flex" sx={{ mb: 1 }}>
@@ -84,7 +84,7 @@ function HomeComp() {
                 pt: 3,
                 borderRadius: 10,
                 boxShadow: 3,
-                height:"36vh"
+                height: "37vh"
               }}
             >
               <Box display="flex" sx={{ mb: 1 }}>
