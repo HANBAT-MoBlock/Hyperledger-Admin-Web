@@ -47,7 +47,7 @@ function TransactionTable() {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.dateCreated}
+                {row.dateCreated.substring(0,10)}
               </TableCell>
               <TableCell align="right">{row.senderIdentifier}</TableCell>
               <TableCell align="right">{row.receiverIdentifier}</TableCell>

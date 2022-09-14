@@ -8,8 +8,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import StickyFooter from "../../../component/StickyFooter";
-import StickyHeader from "../../../component/StickyHeader";
+import LoginFooter from "../../../component/LoginFooter";
+import LoginHeader from "../../../component/LoginHeader";
 import { useRecoilState } from "recoil";
 import { authAtom } from "../../../atoms";
 import { useHistory } from "react-router-dom";
@@ -58,7 +58,7 @@ function SignIn() {
       }}
     >
       <CssBaseline />
-      <StickyHeader />
+      <LoginHeader />
         <Box
           sx={{
             pl: 2,
@@ -118,7 +118,7 @@ function SignIn() {
             </Button>
           </Box>
         </Box>
-      <StickyFooter />
+      <LoginFooter />
     </Box>
   );
 }

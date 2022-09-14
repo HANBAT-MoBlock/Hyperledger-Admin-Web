@@ -17,7 +17,7 @@ function Copyright() {
   );
 }
 
-export default function StickyFooter() {
+export default function LoginFooter() {
   return (
     <Box
       component="footer"

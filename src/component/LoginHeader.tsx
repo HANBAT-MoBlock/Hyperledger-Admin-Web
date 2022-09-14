@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { maxHeaderSize } from "http";
 
-function StickyHeader() {
+function LoginHeader() {
   return (
     <Box sx={{ flexGrow: 1, minWidth: "100vw"}}>
       <AppBar position="static" sx={{
@@ -21,4 +21,4 @@ function StickyHeader() {
   );
 }
 
-export default StickyHeader;
+export default LoginHeader;
