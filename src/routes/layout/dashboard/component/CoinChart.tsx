@@ -55,7 +55,7 @@ function CoinChart({ coinName }: props) {
         },
 
         title: {
-          text: `usage of ${coinName.toUpperCase()} coin`,
+          text: `usage of ${coinName?.toUpperCase()} coin`,
           align: "left"
         },
         subtitle: {

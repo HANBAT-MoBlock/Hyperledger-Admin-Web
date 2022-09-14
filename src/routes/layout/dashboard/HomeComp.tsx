@@ -11,9 +11,6 @@ import { useRecoilValue } from "recoil";
 import { authAtom } from "../../../atoms";
 import { NativeSelect, Stack, styled } from "@mui/material";
 import CoinShareChart from "./component/CoinShareChart";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Paper from "@mui/material/Paper";
 import ShopList from "./component/ShopList";
 
 
@@ -77,7 +74,7 @@ function HomeComp() {
                   {data!.coinDtoList.map((currElement, index) => <option value={index}>{currElement.name}</option>)}
                 </NativeSelect>
               </Box>
-              <CoinChart coinName={data!.coinDtoList[coinOne]!.name} />
+              <CoinChart coinName={data!.coinDtoList[coinOne]?.name} />
             </Box>
           </Grid>
           <Grid item xs={6}>
@@ -102,7 +99,7 @@ function HomeComp() {
                   {data!.coinDtoList.map((currElement, index) => <option value={index}>{currElement.name}</option>)}
                 </NativeSelect>
               </Box>
-              <CoinChart coinName={data!.coinDtoList[coinTwo]!.name} />
+              <CoinChart coinName={data!.coinDtoList[coinTwo]?.name} />
             </Box>
           </Grid>
           <Grid item xs={6}>
