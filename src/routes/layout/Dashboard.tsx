@@ -82,7 +82,9 @@ function Dashboard() {
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
+        <Toolbar>
+            <img alt="hanbatLogo" src="/hanbatLogo.jpg" width='100%' height='80%'/>
+        </Toolbar>
         <Divider />
         <List>
           {["홈", "사용자 관리", "코인 관리", "가맹점 관리", "트랜잭션"].map(
